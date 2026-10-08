@@ -179,7 +179,7 @@ function tokenValue(token, scope, root) {
  * inside a string never need it.
  * @param {string} content -- between the quotes, still escaped
  * @param {string} scope
- * @returns {string | InterpText}
+ * @returns {string | InstanceType<typeof import('./nodes.cjs').InterpText>}
  */
 function interpolatedString(content, scope) {
   const segments = parseInterpolated(unescape(content), scope);

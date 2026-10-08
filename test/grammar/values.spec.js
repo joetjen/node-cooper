@@ -137,7 +137,7 @@ describe('end to end: strings (CASC.md §6.5)', () => {
     const casc = (/** @type {string} */ s) =>
       `"${s.replace(/[\\"\n\r\t]|[\u0000-\u001f]|[\ud800-\udfff]/g, (c) => named[c] ?? `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`)}"`;
     fc.assert(
-      fc.property(fc.oneof(fc.string({ maxLength: 30 }), fc.fullUnicodeString({ maxLength: 20 })), (s) => {
+      fc.property(fc.oneof(fc.string({ maxLength: 30 }), fc.string({ unit: 'binary', maxLength: 20 })), (s) => {
         // Reference openers are avoided, since they'd interpolate.
         fc.pre(!/[@$%!]\{|![a-zA-Z]/.test(s));
         expect(value(casc(s))).to.equal(s);
@@ -339,7 +339,7 @@ describe('end to end: load-time literal errors are clean CooperErrors', () => {
   it('loading arbitrary statement text never throws anything but a CooperError', () => {
     const chars = fc.constantFrom(...'#@{}$%!()[]:=,.+-*~?|"\' \n\tabcfinortuxyz0123456789_'.split(''));
     fc.assert(
-      fc.property(fc.oneof(fc.string({ maxLength: 50 }), fc.stringOf(chars, { maxLength: 50 })), (body) => {
+      fc.property(fc.oneof(fc.string({ maxLength: 50 }), fc.string({ unit: chars, maxLength: 50 })), (body) => {
         try {
           load(body);
         } catch (err) {

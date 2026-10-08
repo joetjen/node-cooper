@@ -186,7 +186,7 @@ describe('literals: durations (CASC.md §6.8)', () => {
 
   it('a fractional single unit is (digits × factor) / 10^fraction-digits, rounded half up', () => {
     fc.assert(
-      fc.property(fc.bigUintN(80), fc.stringMatching(/^\d{1,12}$/), fc.constantFrom('ns', 'us', 'ms', 's', 'm', 'h', 'd'), (whole, fraction, unit) => {
+      fc.property(fc.bigInt({ min: 0n, max: 2n ** 80n - 1n }), fc.stringMatching(/^\d{1,12}$/), fc.constantFrom('ns', 'us', 'ms', 's', 'm', 'h', 'd'), (whole, fraction, unit) => {
         const factor = { ns: 1n, us: 1000n, ms: 10n ** 6n, s: 10n ** 9n, m: 60n * 10n ** 9n, h: 3600n * 10n ** 9n, d: 86400n * 10n ** 9n }[unit];
         const num = BigInt(`${whole}${fraction}`) * factor;
         const den = 10n ** BigInt(fraction.length);

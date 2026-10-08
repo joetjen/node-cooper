@@ -358,7 +358,7 @@ describe('dotenv (CASC.md §7.2 environment layering)', () => {
 
     it('property: precedence .env < .env.<env> < .env.local < process.env < env, for arbitrary layers', () => {
       const KEYS = ['CDT_A', 'CDT_B', 'CDT_C', 'CDT_D', 'CDT_E', 'CDT_F'];
-      const layer = fc.dictionary(fc.constantFrom(...KEYS), fc.stringOf(fc.constantFrom('a', 'b', 'c', 'x', 'y', 'z'), { minLength: 1, maxLength: 6 }), {
+      const layer = fc.dictionary(fc.constantFrom(...KEYS), fc.string({ unit: fc.constantFrom('a', 'b', 'c', 'x', 'y', 'z'), minLength: 1, maxLength: 6 }), {
         maxKeys: 3,
       });
       /** @param {Record<string, string>} map */
@@ -596,7 +596,7 @@ describe('dotenv (CASC.md §7.2 environment layering)', () => {
     it('property: a double-quoted value with escaped specials round-trips', () => {
       const char = fc.constantFrom('a', 'Z', '0', ' ', '#', '"', '\\', '\n', '\t', "'", '=', '$');
       fc.assert(
-        fc.property(fc.stringOf(char, { maxLength: 20 }), (value) => {
+        fc.property(fc.string({ unit: char, maxLength: 20 }), (value) => {
           const escaped = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\t/g, '\\t').replace(/\$/g, '\\$');
           expect(Dotenv.parse(`K="${escaped}"\n`)).to.deep.equal({ K: value });
         }),

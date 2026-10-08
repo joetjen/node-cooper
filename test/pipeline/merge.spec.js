@@ -27,7 +27,7 @@ describe('merge: blocks and maps deep-merge by default (CASC.md §8.1)', () => {
     const segment = fc.constantFrom('a', 'b', 'c', 'd');
     const write = fc.record({
       path: fc.array(segment, { minLength: 1, maxLength: 4 }),
-      value: fc.oneof(fc.integer({ min: -1000, max: 1000 }), fc.stringOf(fc.constantFrom('x', 'y', 'z'), { maxLength: 3 })),
+      value: fc.oneof(fc.integer({ min: -1000, max: 1000 }), fc.string({ unit: fc.constantFrom('x', 'y', 'z'), maxLength: 3 })),
     });
     fc.assert(
       fc.property(fc.array(write, { minLength: 1, maxLength: 15 }), (writes) => {

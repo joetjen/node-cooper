@@ -67,8 +67,8 @@ describe('filters: chaining and ordering', () => {
   });
 
   it('property: a chain equals applying each filter in sequence, bare and in-string alike', () => {
-    const text = fc.stringOf(fc.constantFrom('a', 'B', 'c', ' ', '/', ':', '-'), { minLength: 1, maxLength: 12 });
-    const affix = fc.stringOf(fc.constantFrom('a', 'B', '/', ':', '-'), { minLength: 1, maxLength: 3 });
+    const text = fc.string({ unit: fc.constantFrom('a', 'B', 'c', ' ', '/', ':', '-'), minLength: 1, maxLength: 12 });
+    const affix = fc.string({ unit: fc.constantFrom('a', 'B', '/', ':', '-'), minLength: 1, maxLength: 3 });
     const filter = fc.oneof(
       fc.constantFrom('trim', 'downcase', 'upcase').map((name) => ({ name, arg: null })),
       fc.record({ name: fc.constantFrom('trim_prefix', 'trim_suffix'), arg: affix })

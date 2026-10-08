@@ -19,7 +19,7 @@ const single = (src) => {
 
 /** Characters CASC actually uses, so random input hits real token boundaries. */
 const cascChars = fc.constantFrom(...'#@{}$%!()[]:=,.+-*~?|"\'\\ \n\tabcdefinlrstuxo0123456789_eEµTZ/'.split(''));
-const cascLike = fc.oneof(fc.string({ maxLength: 60 }), fc.stringOf(cascChars, { maxLength: 60 }), fc.fullUnicodeString({ maxLength: 30 }));
+const cascLike = fc.oneof(fc.string({ maxLength: 60 }), fc.string({ unit: cascChars, maxLength: 60 }), fc.string({ unit: 'binary', maxLength: 30 }));
 
 describe('lexer: scalar token types', () => {
   it('reserved words', () => {
