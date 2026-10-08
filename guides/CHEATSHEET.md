@@ -15,8 +15,8 @@ loadStringSync(source: string, opts?: LoadOptions): object       // throws Coope
 ```
 
 ```js
-import { loadFile, loadFileSync, loadString, loadStringSync } from 'cooper';
-// or: const { loadFile, ... } = require('cooper');
+import { loadFile, loadFileSync, loadString, loadStringSync } from '@joetjen/cooper';
+// or: const { loadFile, ... } = require('@joetjen/cooper');
 
 loadStringSync('#@version = 1.0\nport = 8080');
 //=> { port: 8080 }
@@ -88,7 +88,7 @@ CASC literal syntax (`Duration` and `ByteSize` in their base unit,
 `JSON.stringify` refuses outright.
 
 ```js
-import { Duration, ByteSize, IPv4 } from 'cooper';
+import { Duration, ByteSize, IPv4 } from '@joetjen/cooper';
 
 Duration.parse('1h30m').toSeconds();
 //=> 5400
@@ -173,7 +173,7 @@ subscribers:
 
 ```js
 import diagnostics from 'node:diagnostics_channel';
-import { Cache } from 'cooper';
+import { Cache } from '@joetjen/cooper';
 
 diagnostics.subscribe(Cache.CHANNEL_ENV_CHANGED, ({ path, changedNames }) => {
   // reload `path`
@@ -207,7 +207,7 @@ ref.load()         // Promise: import(specifier), or value as is
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 import { Stripe } from './lib/payments/stripe.js';
 
 const config = loadStringSync(`#@version = 1.0
@@ -249,7 +249,7 @@ Both render back in CASC's literal syntax via `toString()`/`toJSON()`,
 including when interpolated into a string.
 
 ```js
-import { IPv4, IPv6 } from 'cooper';
+import { IPv4, IPv6 } from '@joetjen/cooper';
 
 const block = IPv4.parse('192.168.1.0/24');
 [block.network(), block.broadcast(), block.netmask(), block.firstHost(), block.lastHost()];
@@ -291,7 +291,7 @@ so spread/`Object.keys`/`structuredClone` don't copy it out.
   index (`[i]`) applied to a secret-sourced value re-wraps its result.
 
 ```js
-import { loadStringSync, Secret } from 'cooper';
+import { loadStringSync, Secret } from '@joetjen/cooper';
 
 const config = loadStringSync(`#@version = 1.0
 db { host = "db.internal", *port = 5432 }
@@ -328,7 +328,7 @@ file; a failure in your own resolver/tag/loader keeps your error as
 | `dotenv` | An `.env` file that exists but fails to parse. |
 
 ```js
-import { loadStringSync, CooperError } from 'cooper';
+import { loadStringSync, CooperError } from '@joetjen/cooper';
 
 try {
   loadStringSync('#@version = 1.0\nport = ${PORT}', { dotenv: false });
@@ -345,7 +345,7 @@ otherwise reach for — a plain function or object you supply, no global
 state involved:
 
 ```js
-import { loadString } from 'cooper';
+import { loadString } from '@joetjen/cooper';
 
 const source = `#@version = 1.0
 import "mem://shared"

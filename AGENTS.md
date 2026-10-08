@@ -4,7 +4,7 @@ Instructions for AI agents working in this Node.js codebase.
 
 `node-cooper` is a JavaScript port of [`cooper`](https://github.com/joetjen/cooper),
 an Elixir library that loads CASC config files. `guides/casc/CASC.md`
-(vendored unchanged from `cooper`'s own `guides/casc/`) is the normative,
+(vendored unchanged from `@joetjen/cooper`'s own `guides/casc/`) is the normative,
 implementation-independent language spec. The reference implementation
 is the authority: this port behaves exactly like it, except where a
 difference is inherent to the host language, and each such difference is
@@ -86,7 +86,7 @@ in `DIVERGENCES.md`, not left implicit.
   None of it is allowed to go stale.
 - Every exported class/function needs a JSDoc block. Update it whenever
   behavior changes. Stale docs are worse than none.
-- `guides/casc/` is vendored from `cooper` and stays identical to it.
+- `guides/casc/` is vendored from `@joetjen/cooper` and stays identical to it.
   Language changes go to the reference's spec first.
 - Update `CHANGELOG.md` for every user-facing change, following
   [Keep a Changelog](https://keepachangelog.com/):

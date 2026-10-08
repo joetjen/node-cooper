@@ -40,7 +40,7 @@ process.env.VAULT_TOKEN = 'test-token';
 
 ```js
 // config.js
-import { loadFile, CooperError } from 'cooper';
+import { loadFile, CooperError } from '@joetjen/cooper';
 
 // `secret/data/orders-db#password` -> the `password` field of the KV v2
 // secret at `secret/data/orders-db`.
@@ -105,7 +105,7 @@ feature_flags.new_checkout = true
 ```
 
 ```js
-import { loadFileSync } from 'cooper';
+import { loadFileSync } from '@joetjen/cooper';
 
 loadFileSync('config/prod.casc');
 //=> {
@@ -155,7 +155,7 @@ process.env.DB_PASSWORD = 'first-password';
 
 ```js
 import diagnostics from 'node:diagnostics_channel';
-import { loadFile, Cache } from 'cooper';
+import { loadFile, Cache } from '@joetjen/cooper';
 
 let current = null; // whatever your app reads its config from
 
@@ -209,7 +209,7 @@ library:
 ```js
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { loadString } from 'cooper';
+import { loadString } from '@joetjen/cooper';
 
 test('prod overlay raises the connection pool', async () => {
   const source = `#@version = 1.0
@@ -257,7 +257,7 @@ allowed_networks = [10.0.0.0/8, 192.168.1.0/24, 203.0.113.7/32]
 ```
 
 ```js
-import { loadFileSync, IPv4 } from 'cooper';
+import { loadFileSync, IPv4 } from '@joetjen/cooper';
 
 function isAllowed(config, remoteAddress) {
   const candidate = IPv4.parse(remoteAddress);
@@ -300,7 +300,7 @@ for @name in @{shard_names}, @replicas in @{shard_replicas}
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 loadStringSync(source);
 //=> {
@@ -334,7 +334,7 @@ api.base_url = !url(${API_URL:"https://api.example.com/v2/"})
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 const tags = {
   url: (arg) => new URL(arg), // throws a TypeError for an invalid URL
@@ -400,7 +400,7 @@ export default function format(level, message) {
 ```
 
 ```js
-import { loadFileSync } from 'cooper';
+import { loadFileSync } from '@joetjen/cooper';
 
 // Run from the project root, so these resolve against it.
 const modules = {
@@ -448,7 +448,7 @@ server {
 ```js
 // scripts/validate-config.js
 import path from 'node:path';
-import { loadFile, CooperError } from 'cooper';
+import { loadFile, CooperError } from '@joetjen/cooper';
 
 export function describeFailure(file, err) {
   if (!(err instanceof CooperError)) throw err;

@@ -27,7 +27,7 @@ database {
 ```
 
 ```js
-import { loadFile } from 'cooper';
+import { loadFile } from '@joetjen/cooper';
 
 const config = await loadFile('config.casc', { env: { DB_PASSWORD: 'hunter2' } });
 console.log(config);
@@ -52,7 +52,7 @@ value is wrapped in a `Secret`, which `String()`, template literals,
 `JSON.stringify` and `console.log` all redact. Call `reveal()` to get the
 real value.
 
-`require('cooper')` works the same as `import`.
+`require('@joetjen/cooper')` works the same as `import`.
 
 ## Values
 
@@ -187,7 +187,7 @@ Cache events go out on two `node:diagnostics_channel` channels:
 ## Installation
 
 ```sh
-npm install cooper
+npm install @joetjen/cooper
 ```
 
 Node.js 20 or later. No runtime dependencies.

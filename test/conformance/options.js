@@ -36,7 +36,7 @@ export const ENV = {
 const MODULES = {
   'Acme.Payments.StripeClient': './lib/payments/stripe.js',
   'ASCO.HTTPClient': '@asco/http-client',
-  Cooper: 'cooper',
+  Cooper: '@joetjen/cooper',
   'Foo.Bar': 'node:path',
 };
 
