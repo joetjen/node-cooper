@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Published as **`@joetjen/cooper`**, under the author's npm scope: the
+unscoped `cooper` is another project's. The scope matches the PHP
+packages' `joetjen/` vendor name.
+
 ### Added
 
 - Project scaffold mirroring `node-dextrin`: `package.json` (zero runtime
@@ -43,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`cooper:cache:file_changed`, `cooper:cache:env_changed`).
 - Differential conformance testing against the Elixir reference
   (`test/conformance/`, `scripts/oracle.exs`).
-- `guides/casc/`, the CASC spec, vendored from `cooper`.
+- `guides/casc/`, the CASC spec, vendored from `@joetjen/cooper`.
 - **A list or tuple element may be a block -- a map** (CASC.md §6.10):
   `access_control = [{ path = "^/admin" }]`. Its keys interpolate, a
   loop binding reaches it, and `+`/`-` append or remove whole maps,

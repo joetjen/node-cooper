@@ -1,7 +1,10 @@
 {
-  "name": "cooper",
+  "name": "@joetjen/cooper",
   "version": "0.1.0",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "Jan Oetjen <joetjen.riveting388@passmail.net> (http://joetjen.net)",
   "description": "Loads CASC config files -- a hierarchical, extensible config language with imports, variables, interpolation, loops, and consumer-registered resolvers/tags -- into native JS values, secrets redacted by default.",
   "homepage": "https://github.com/joetjen/node-cooper",

@@ -30,7 +30,7 @@ against:
 That alone is a complete, valid file:
 
 ```js
-import { loadString } from 'cooper';
+import { loadString } from '@joetjen/cooper';
 
 await loadString('#@version = 1.0');
 //=> {}
@@ -46,7 +46,7 @@ failure; see [§6](#6-errors).
 `require` works just as well:
 
 ```js
-const { loadStringSync } = require('cooper');
+const { loadStringSync } = require('@joetjen/cooper');
 
 loadStringSync('#@version = 1.0');
 //=> {}
@@ -73,7 +73,7 @@ callback that hands back a `Promise`, with an error saying so, rather
 than silently putting a `Promise` into your config:
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 try {
   loadStringSync('#@version = 1.0\ntoken = !{vault:api/token}', {
@@ -105,7 +105,7 @@ server {
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 loadStringSync(source);
 //=> {
@@ -122,7 +122,7 @@ anything that expects one.
 
 Values include the usual scalars plus a few CASC-specific literals
 ([CASC.md §6](casc/CASC.md) has the full grammar). Each lands on the
-closest native JS value, and on a small class from `cooper` only where
+closest native JS value, and on a small class from `@joetjen/cooper` only where
 nothing native fits without losing information:
 
 ```casc
@@ -144,7 +144,7 @@ coordinates = (52.52, 13.405)
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 const values = loadStringSync(source);
 //=> {
@@ -217,7 +217,7 @@ allowed_networks = [10.0.0.0/8, 192.168.1.0/24]
 ```
 
 ```js
-import { loadStringSync, IPv4 } from 'cooper';
+import { loadStringSync, IPv4 } from '@joetjen/cooper';
 
 const config = loadStringSync(source);
 const [office, vpn] = config.allowed_networks;
@@ -246,7 +246,7 @@ endpoint = "https://api.@{region}.example.com"
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 loadStringSync(source);
 //=> { endpoint: 'https://api.eu-west.example.com' }
@@ -277,7 +277,7 @@ allowed_hosts = ${ALLOWED_HOSTS[]:["localhost"]}
 With `REGION=eu-west` set and everything else unset:
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 loadStringSync(source, { env: { REGION: 'eu-west' } });
 //=> { region: 'eu-west', max_retries: 3, allowed_hosts: [ 'localhost' ] }
@@ -298,7 +298,7 @@ A few things happened there:
   it can tell `!twice(2.0)` from `!twice(2)`:
 
   ```js
-  import { CooperFloat } from 'cooper';
+  import { CooperFloat } from '@joetjen/cooper';
 
   const tags = {
     twice: (n) => {
@@ -335,7 +335,7 @@ url = "postgres://%{database.host}?password=%{database.password}"
 ```
 
 ```js
-import { loadStringSync, Secret } from 'cooper';
+import { loadStringSync, Secret } from '@joetjen/cooper';
 
 const config = loadStringSync(source, { env: { DB_PASSWORD: 'hunter2' } });
 //=> {
@@ -392,7 +392,7 @@ thrown by the `*Sync` functions, the rejection reason of the async ones.
 alongside a human-readable `err.message`:
 
 ```js
-import { loadString, CooperError } from 'cooper';
+import { loadString, CooperError } from '@joetjen/cooper';
 
 try {
   await loadString('#@version = 1.0\nvalue = !{missing:x}');
@@ -408,7 +408,7 @@ A syntax error also carries `err.line` and `err.column` (1-based), and
 `err.file` when the source came from a file:
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 try {
   loadStringSync('#@version = 1.0\nserver {\n  port = = 8080\n}');
@@ -456,7 +456,7 @@ endpoint = "https://api.@{region}.example.com"
 ```
 
 ```js
-import { loadFile } from 'cooper';
+import { loadFile } from '@joetjen/cooper';
 
 await loadFile('app.casc');
 //=> {
@@ -483,7 +483,7 @@ app_name = "orders"
 ```
 
 ```js
-import { loadString } from 'cooper';
+import { loadString } from '@joetjen/cooper';
 
 const importSchemes = {
   mem: async (rest) => '#@version = 1.0\nregion = "eu-west"',
@@ -524,7 +524,7 @@ tags = ["a", "b", "c"]
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 loadStringSync(source);
 //=> { server: { port: 9090 }, tags: [ 'a', 'c', 'd' ] }
@@ -553,7 +553,7 @@ for @instance in @{instances} from defaults.replica as replicas."@{instance}" {
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 loadStringSync(source);
 //=> {
@@ -590,7 +590,7 @@ admin_email = %{contact.admin:"ops@example.com"}
 ```
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 loadStringSync(source);
 //=> {
@@ -633,7 +633,7 @@ or, with the async API, a `Promise` of it. Throw (or reject) to fail
 the load:
 
 ```js
-import { loadFile, CooperError } from 'cooper';
+import { loadFile, CooperError } from '@joetjen/cooper';
 
 // Stands in for your secrets manager's client.
 const vault = {
@@ -715,7 +715,7 @@ LOG_LEVEL=warning
 ```
 
 ```js
-import { loadFileSync } from 'cooper';
+import { loadFileSync } from '@joetjen/cooper';
 
 loadFileSync('config.casc');
 //=> { region: 'eu-west', log_level: 'info' }
@@ -784,7 +784,7 @@ port = !int(${PORT:8080})
 ```
 
 ```js
-import { loadFile, Cache } from 'cooper';
+import { loadFile, Cache } from '@joetjen/cooper';
 
 await loadFile('config.casc');
 //=> { port: 8080 }
@@ -910,7 +910,7 @@ those the same), `beta_enabled` is skipped entirely and doesn't appear
 in the result at all:
 
 ```js
-import { loadStringSync } from 'cooper';
+import { loadStringSync } from '@joetjen/cooper';
 
 loadStringSync(source, { env: { FEATURE_FLAG: '' } });
 //=> { log_level: Symbol(info) }
