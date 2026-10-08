@@ -1,0 +1,1 @@
+{"error":"resolve","message":"!module(...) failed: cannot convert \"crypto\" to a module: not a dot-separated PascalCase module name"}

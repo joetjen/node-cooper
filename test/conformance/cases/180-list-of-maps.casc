@@ -1,0 +1,5 @@
+#@version = 1.0
+access_control = [
+  { path = "^/admin", roles = ["ROLE_ADMIN"] }
+  { path = "^/api", roles = ["ROLE_API"] }
+]

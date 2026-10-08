@@ -1,0 +1,1 @@
+{"ok":{"map":[["nested",{"tuple":[{"tuple":[{"int":"1"},{"int":"2"}]},[{"int":"3"}]]}],["office_location",{"tuple":[{"float":52.52},{"float":13.405}]}],["pair",{"tuple":[{"int":"1"},"a"]}]]}}

@@ -1,0 +1,1 @@
+{"ok":{"map":[["admin_email","ops@example.com"],["defined_after",{"int":"42"}],["health_check",{"map":[["url","http://api.internal:8080/health"]]}],["later",{"int":"42"}],["server",{"map":[["host","api.internal"],["port",{"int":"8080"}]]}],["whole",{"map":[["host","api.internal"],["port",{"int":"8080"}]]}]]}}

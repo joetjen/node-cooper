@@ -1,0 +1,3 @@
+#@version = 1.0
+@s = "abc"
+a = @{s[0]:"none"}

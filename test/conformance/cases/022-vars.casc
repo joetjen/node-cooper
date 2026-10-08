@@ -1,0 +1,12 @@
+#@version = 1.0
+@name = "svc"
+@list = ["a", "b"]
+@nothing = nil
+plain = @{name}
+default = @{missing:"fallback"}
+alt_set = @{name:+"yes"}
+alt_unset = @{missing:+"yes"}
+indexed = @{list[1]}
+indexed_default = @{list[5]:"none"}
+in_string = "name=@{name} first=@{list[0]}"
+filtered = @{name | upcase}

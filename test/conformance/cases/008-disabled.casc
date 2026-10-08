@@ -1,0 +1,6 @@
+#@version = 1.0
+section {
+  #ignored = 1
+  #sub { remove = yes }
+  kept = true
+}

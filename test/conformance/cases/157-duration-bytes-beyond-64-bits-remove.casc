@@ -1,0 +1,6 @@
+#@version = 1.0
+# `-key` removes a huge duration or byte size by its exact count.
+d = [300000000d, 300000001d, 1d]
+-d = [300000000d]
+b = [20000000PiB, 20000001PiB]
+-b = [20000001PiB]

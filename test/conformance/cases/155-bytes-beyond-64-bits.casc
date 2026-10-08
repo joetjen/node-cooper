@@ -1,0 +1,8 @@
+#@version = 1.0
+# A byte size's count is an integer like any other: past 64 bits it keeps
+# every digit of the amount times its unit, computed exactly.
+pib = 20000000PiB
+whole = 99999999999999999999B
+kb = 777777777777777777777777777777kb
+fraction = 12345.5PiB
+fits = 8PB

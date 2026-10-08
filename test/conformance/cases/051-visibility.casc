@@ -1,0 +1,6 @@
+#@version = 1.0
+@service = "checkout"
+@*mine = "top-private"
+import "imports/vis_child.casc"
+from_child = @{child_public}
+own_private = @{mine}

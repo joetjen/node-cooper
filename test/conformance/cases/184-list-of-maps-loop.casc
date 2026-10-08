@@ -1,0 +1,2 @@
+#@version = 1.0
+for @x in ["a", "b"] as o."@{x}" { l = [{ "k-@{x}" = @{x} }] }

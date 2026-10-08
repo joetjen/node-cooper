@@ -1,0 +1,3 @@
+#@version = 1.0
+@sep = [1]
+s = ${SCHEME | trim_suffix: "@{sep}"}

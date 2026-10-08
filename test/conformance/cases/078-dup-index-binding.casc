@@ -1,0 +1,2 @@
+#@version = 1.0
+for @i, @j, @x in [1] as out { v = 1 }

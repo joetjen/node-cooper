@@ -1,0 +1,11 @@
+#@version = 1.0
+ns = 5ns
+us = 5us
+micro = 5µs
+ms = 500ms
+s = 30s
+m = 5m
+h = 2h
+d = 1d
+compound = 1h30m
+frac = 1.5h

@@ -1,0 +1,63 @@
+{
+  "name": "cooper",
+  "version": "0.1.0",
+  "private": false,
+  "author": "Jan Oetjen <joetjen.riveting388@passmail.net> (http://joetjen.net)",
+  "description": "Loads CASC config files -- a hierarchical, extensible config language with imports, variables, interpolation, loops, and consumer-registered resolvers/tags -- into native JS values, secrets redacted by default.",
+  "homepage": "https://github.com/joetjen/node-cooper",
+  "type": "module",
+  "main": "./src/cooper.cjs",
+  "exports": {
+    ".": {
+      "import": "./src/cooper.js",
+      "require": "./src/cooper.cjs",
+      "default": "./src/cooper.cjs"
+    }
+  },
+  "files": [
+    "src",
+    "guides"
+  ],
+  "license": "Apache-2.0",
+  "directories": {
+    "src": "./src"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "auto-changelog": "^2.6.0",
+    "chai": "^6.2.2",
+    "fast-check": "^3.23.0",
+    "mocha": "^11.7.6",
+    "typedoc": "^0.28.20",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "test": "npx mocha --recursive test/",
+    "autotest": "npx mocha --recursive --watch test/",
+    "typecheck": "npx tsc --checkJs --noEmit",
+    "precommit": "npm run typecheck && npm test",
+    "docs": "npx typedoc",
+    "oracle": "cd ../cooper && mix run ../node-cooper/scripts/oracle.exs ../node-cooper/test/conformance/cases",
+    "version": "npx auto-changelog --package --template keepachangelog && git add CHANGELOG.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/joetjen/node-cooper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joetjen/node-cooper/issues",
+    "email": "joetjen.riveting388@passmail.net"
+  },
+  "keywords": [
+    "casc",
+    "cooper",
+    "config",
+    "configuration",
+    "dotenv",
+    "secrets"
+  ]
+}

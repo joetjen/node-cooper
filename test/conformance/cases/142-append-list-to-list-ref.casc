@@ -1,0 +1,5 @@
+#@version = 1.0
+@more = [2]
+a = [1]
++a = @{more}
+-a = @{more}

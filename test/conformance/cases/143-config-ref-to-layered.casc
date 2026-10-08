@@ -1,0 +1,5 @@
+#@version = 1.0
+d.r { cpu = 1 }
+for @x in ["a"] from d.r as out."@{x}" { mem = 2 }
+c = %{out.a.cpu}
+m = %{out.a}

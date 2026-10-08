@@ -1,0 +1,1 @@
+{"ok":{"map":[["access_control",[{"map":[["path","^/admin"],["roles",["ROLE_ADMIN"]]]},{"map":[["path","^/api"],["roles",["ROLE_API"]]]}]]]}}

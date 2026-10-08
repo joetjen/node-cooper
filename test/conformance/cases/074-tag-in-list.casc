@@ -1,0 +1,2 @@
+#@version = 1.0
+l = [!int("1"), !upcase("a")]

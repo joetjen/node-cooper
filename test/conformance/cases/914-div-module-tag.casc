@@ -1,0 +1,3 @@
+#@version = 1.0
+m = !module("./handlers/thing.js")
+n = !module("node:fs")

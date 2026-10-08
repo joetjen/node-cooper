@@ -1,0 +1,1 @@
+{"ok":{"map":[["debug",true],["down","abc"],["mem",{"bytes":"536870912"}],["nested",{"int":"42"}],["port",{"int":"9090"}],["ratio",{"float":1.5}],["ratio_int",{"float":2.0}],["trimmed","padded"],["up","ABC"],["wait",{"duration":"300000000000"}]]}}

@@ -1,0 +1,3 @@
+#@version = 1.0
+n = 42
+a = %{n | trim}

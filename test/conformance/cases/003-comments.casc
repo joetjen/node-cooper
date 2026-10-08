@@ -1,0 +1,6 @@
+#@version = 1.0
+# a comment
+key = 1 # trailing comment
+#
+# TODO: nothing
+other = "# not a comment"

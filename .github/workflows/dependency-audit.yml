@@ -1,0 +1,66 @@
+name: Dependency Audit
+
+# Runs once a month and emails the report. Dependabot (see
+# .github/dependabot.yml) also runs monthly and opens PRs; this job is the
+# push-based summary of what is retired, vulnerable, or out of date.
+
+on:
+  schedule:
+    # 06:00 UTC on the 1st of every month (minute staggered per repo).
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Monthly dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start report
+        run: |
+          {
+            echo "Dependency audit for ${{ github.repository }}"
+            echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo "Date: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            echo
+          } > "$GITHUB_WORKSPACE/audit.txt"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install npm dependencies
+        run: npm install --ignore-scripts --no-audit --no-fund
+
+      - name: Audit npm dependencies
+        run: |
+          {
+            echo "### npm audit"
+            npm audit 2>&1 || true
+            echo
+            echo "### npm outdated"
+            npm outdated 2>&1 || true
+          } >> "$GITHUB_WORKSPACE/audit.txt"
+
+      - name: Print report
+        if: always()
+        run: cat "$GITHUB_WORKSPACE/audit.txt"
+
+      - name: Email report
+        if: always()
+        uses: dawidd6/action-send-mail@v18
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          from: GitHub Actions <${{ secrets.SMTP_USERNAME }}>
+          to: oetjenj@gmail.com
+          subject: "[${{ github.repository }}] Monthly dependency audit"
+          body: file://audit.txt

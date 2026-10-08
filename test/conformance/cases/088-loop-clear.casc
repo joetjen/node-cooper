@@ -1,0 +1,3 @@
+#@version = 1.0
+inner.keep = 1
+for @x in ["a"] as out."@{x}" { ~inner { v = 1 } }

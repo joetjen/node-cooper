@@ -1,0 +1,5 @@
+#@version = 1.0
+a { bar { baz = "dronf" } }
+b { bar.baz "dronf" }
+c = { bar = { baz = "dronf" } }
+d.bar.baz "dronf"

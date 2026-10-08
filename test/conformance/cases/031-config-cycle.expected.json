@@ -1,0 +1,1 @@
+{"error":"resolve","message":"circular %{...} reference: b -> c -> a -> b"}

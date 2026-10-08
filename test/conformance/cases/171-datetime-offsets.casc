@@ -1,0 +1,9 @@
+#@version = 1.0
+# Every offset is normalized to UTC; the fraction is untouched by it.
+ist = 1979-05-27T07:32:00.120+05:30
+west = 1979-05-27T00:32:00.5-05:30
+utc = 1979-05-27T07:32:00+00:00
+widest = 1979-05-27T07:32:00+23:59
+year_before = 0000-01-01T00:00:00+00:01
+year_after = 9999-12-31T23:30:00-05:00
+leap = 2024-02-29T23:30:00-01:00
