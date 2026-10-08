@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.0] - 2026-10-08
 
 Published as **`@joetjen/cooper`**, under the author's npm scope: the
 unscoped `cooper` is another project's. The scope matches the PHP
@@ -19,7 +19,8 @@ packages' `joetjen/` vendor name.
   API docs, and GitHub Actions for CI, docs and a monthly dependency
   audit.
 - Licensed under the Apache License 2.0.
-- A port of `cooper` 0.4.0's whole loading pipeline:
+- A port of `cooper`'s whole loading pipeline, matching the Elixir
+  reference's 0.5.0 case for case on the shared conformance corpus:
   - a hand-written CASC lexer and PEG parser, porting the reference
     grammar rule for rule;
   - `for` loops, imports (bare paths with brace and glob expansion,
@@ -161,7 +162,7 @@ packages' `joetjen/` vendor name.
   as in the reference; it loaded as UTC.
 
 These were bugs in the Elixir reference when this port was written; the
-reference has fixed them since:
+reference fixed them in its 0.5.0:
 
 - `foo "bar"` works without `=`.
 - `-key` inside a block deletes the key.
