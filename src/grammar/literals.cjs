@@ -52,7 +52,7 @@ function parseInteger(text) {
  * `FLOAT` token text, `_` separators allowed (CASC.md §6.3). Wrapped, so
  * `1.0` stays a float through the pipeline (see `values/float.cjs`).
  * @param {string} text
- * @returns {CooperFloat}
+ * @returns {InstanceType<typeof import('../values/float.cjs').CooperFloat>}
  */
 function parseFloatLiteral(text) {
   return new CooperFloat(Number(text.replace(/_/g, '')));

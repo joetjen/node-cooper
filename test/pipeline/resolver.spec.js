@@ -370,8 +370,8 @@ describe('resolver: ${NAME[]} list splitting (CASC.md §7.2)', () => {
   });
 
   it('property: joining trimmed items with random separators and padding splits back to the items', () => {
-    const item = fc.stringOf(fc.constantFrom('a', 'b', 'Z', '0', '-', '_', '.', '/'), { minLength: 1, maxLength: 6 });
-    const pad = fc.stringOf(fc.constant(' '), { maxLength: 2 });
+    const item = fc.string({ unit: fc.constantFrom('a', 'b', 'Z', '0', '-', '_', '.', '/'), minLength: 1, maxLength: 6 });
+    const pad = fc.string({ unit: fc.constant(' '), maxLength: 2 });
     const part = fc.record({ item, before: pad, after: pad, sep: fc.constantFrom(',', ';') });
     fc.assert(
       fc.property(fc.array(part, { minLength: 1, maxLength: 8 }), (parts) => {

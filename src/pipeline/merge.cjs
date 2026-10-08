@@ -110,7 +110,7 @@ function getAt(tree, path) {
  * never touches a lazy base.
  * @param {unknown} tree
  * @param {string[]} path
- * @returns {{found: true, value: unknown} | {lazy: ConfigRef} | null}
+ * @returns {{found: true, value: unknown} | {lazy: InstanceType<typeof import('./nodes.cjs').ConfigRef>} | null}
  */
 function lazyAt(tree, path) {
   /** @type {unknown} */
@@ -137,7 +137,7 @@ function lazyAt(tree, path) {
  * @param {unknown} tree
  * @param {string[]} path
  * @param {unknown} value
- * @returns {Tree | Layered}
+ * @returns {Tree | InstanceType<typeof import('./nodes.cjs').Layered>}
  */
 function putAt(tree, path, value) {
   // Writing into `{}`/a plain map always yields a plain map.

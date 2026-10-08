@@ -56,7 +56,7 @@ describe('interp: plain text', () => {
   it('never throws anything but a CooperError on arbitrary text', () => {
     const chars = fc.constantFrom(...'@$%!{}()[]:?+|"\'\\ ,.abcxyz019_'.split(''));
     fc.assert(
-      fc.property(fc.oneof(fc.string(), fc.stringOf(chars, { maxLength: 40 })), (text) => {
+      fc.property(fc.oneof(fc.string(), fc.string({ unit: chars, maxLength: 40 })), (text) => {
         try {
           segments(text);
         } catch (err) {

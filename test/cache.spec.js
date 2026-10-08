@@ -182,7 +182,7 @@ describe('Cache (loadFile caching)', () => {
 
     it('property: every distinct-mtime write is observed on the very next load', () => {
       fc.assert(
-        fc.property(fc.array(fc.stringOf(fc.constantFrom('a', 'b', 'c', 'x'), { minLength: 1, maxLength: 8 }), { minLength: 1, maxLength: 8 }), (names) => {
+        fc.property(fc.array(fc.string({ unit: fc.constantFrom('a', 'b', 'c', 'x'), minLength: 1, maxLength: 8 }), { minLength: 1, maxLength: 8 }), (names) => {
           Cache.clear();
           names.forEach((name, i) => {
             const file = write('prop.casc', 5000 + i, `${HEADER}name = "${name}"\n`);

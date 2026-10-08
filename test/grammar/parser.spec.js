@@ -338,7 +338,7 @@ describe('parser: values (CASC.md §6)', () => {
 
 describe('parser properties', () => {
   const cascChars = fc.constantFrom(...'#@{}$%!()[]:=,.+-*~?|"\' \n\tabcfinortu0123456789_'.split(''));
-  const body = fc.oneof(fc.string({ maxLength: 60 }), fc.stringOf(cascChars, { maxLength: 60 }));
+  const body = fc.oneof(fc.string({ maxLength: 60 }), fc.string({ unit: cascChars, maxLength: 60 }));
 
   it('never throws anything but a lexer- or parser-stage CooperError', () => {
     fc.assert(

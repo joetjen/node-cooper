@@ -144,7 +144,7 @@ class Resolver {
   // ---- @{...} -------------------------------------------------------------
 
   /**
-   * @param {VarRef} ref
+   * @param {InstanceType<typeof import('./nodes.cjs').VarRef>} ref
    * @returns {Pipeline<unknown>}
    */
   *resolveVar(ref) {
@@ -189,7 +189,7 @@ class Resolver {
   // ---- ${...} -------------------------------------------------------------
 
   /**
-   * @param {EnvRef} ref
+   * @param {InstanceType<typeof import('./nodes.cjs').EnvRef>} ref
    * @returns {Pipeline<unknown>}
    */
   *resolveEnv(ref) {
@@ -209,7 +209,7 @@ class Resolver {
   // ---- %{...} -------------------------------------------------------------
 
   /**
-   * @param {ConfigRef} ref
+   * @param {InstanceType<typeof import('./nodes.cjs').ConfigRef>} ref
    * @returns {Pipeline<unknown>}
    */
   *resolveConfig(ref) {
@@ -312,7 +312,7 @@ class Resolver {
    * document's are, and that map resolved like any other. While keys are
    * being resolved there is no tree yet, and a key is a string, so one
    * here is refused, as the reference refuses it.
-   * @param {Block} block
+   * @param {InstanceType<typeof import('./nodes.cjs').Block>} block
    * @returns {Pipeline<unknown>}
    */
   *resolveBlock(block) {
@@ -338,7 +338,7 @@ class Resolver {
   // ---- Layered / ListEdit ---------------------------------------------------
 
   /**
-   * @param {Layered} layered
+   * @param {InstanceType<typeof import('./nodes.cjs').Layered>} layered
    * @returns {Pipeline<unknown>}
    */
   *resolveLayered(layered) {
@@ -348,7 +348,7 @@ class Resolver {
   }
 
   /**
-   * @param {ListEdit} edit
+   * @param {InstanceType<typeof import('./nodes.cjs').ListEdit>} edit
    * @returns {Pipeline<unknown>}
    */
   *resolveListEdit(edit) {
@@ -381,7 +381,7 @@ class Resolver {
   // ---- !{resolver:payload} / !Name(arg) -------------------------------------
 
   /**
-   * @param {ResolverRef} ref
+   * @param {InstanceType<typeof import('./nodes.cjs').ResolverRef>} ref
    * @returns {Pipeline<unknown>}
    */
   *resolveResolver(ref) {
@@ -401,7 +401,7 @@ class Resolver {
   /**
    * A secret-sourced argument is unwrapped for the tag function and the
    * result re-wrapped: a value derived from a secret is still a secret.
-   * @param {TaggedRef} ref
+   * @param {InstanceType<typeof import('./nodes.cjs').TaggedRef>} ref
    * @returns {Pipeline<unknown>}
    */
   *resolveTagged(ref) {

@@ -30,7 +30,7 @@ const SIMPLE_ESCAPES = { n: '\n', r: '\r', t: '\t', '"': '"', '\\': '\\' };
  * `!{name:payload}` -> a `ResolverRef`; the *first* `:` splits name from
  * payload (CASC.md §7.4). Shared with the main evaluator.
  * @param {string} raw -- the whole span, `!{` and `}` included
- * @returns {ResolverRef}
+ * @returns {InstanceType<typeof import('../pipeline/nodes.cjs').ResolverRef>}
  */
 function buildResolverRef(raw) {
   const inner = raw.slice(2, -1);
