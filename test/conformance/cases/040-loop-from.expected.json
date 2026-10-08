@@ -1,0 +1,1 @@
+{"ok":{"map":[["defaults",{"map":[["replica",{"map":[["cpu",{"int":"1"}],["memory_mb",{"int":"512"}]]}]]}],["replicas",{"map":[["a",{"map":[["cpu",{"int":"2"}],["memory_mb",{"int":"512"}]]}],["b",{"map":[["cpu",{"int":"2"}],["memory_mb",{"int":"512"}]]}],["c",{"map":[["cpu",{"int":"2"}],["memory_mb",{"int":"512"}]]}]]}]]}}

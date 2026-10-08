@@ -1,0 +1,6 @@
+#@version = 1.0
+scheme = ${SCHEME | trim_suffix: "://" | downcase}
+region = ${NOPE:"  us-east-1  " | trim}
+endpoint = "${SCHEME | trim_suffix: '://'}://host"
+padded = ${PADDED | trim | upcase}
+prefix = ${REGION | trim_prefix: "eu-"}

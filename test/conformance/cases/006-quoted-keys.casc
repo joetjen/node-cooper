@@ -1,0 +1,6 @@
+#@version = 1.0
+headers = {
+  "Content-Type" = "application/json"
+}
+foo."bar baz".dronf = "fnord"
+'single key' = 1

@@ -1,0 +1,9 @@
+#@version = 1.0
+# An offset datetime keeps its fraction to the microsecond, written with
+# the digits it was given; finer digits are truncated, not rounded.
+nano = 1979-05-27T07:32:00.123456789Z
+seven = 1979-05-27T07:32:00.9999999Z
+zero = 1979-05-27T07:32:00.0Z
+milli = 1979-05-27T07:32:00.120Z
+micro = 1979-05-27T07:32:00.000001Z
+whole = 1979-05-27T07:32:00Z

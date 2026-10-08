@@ -1,0 +1,8 @@
+#@version = 1.0
+${?FEATURE}
+on = true
+${?EMPTY}
+empty_guarded = !nope(1)
+${?UNSET_THING}
+unset_guarded = !nope(2)
+after = true

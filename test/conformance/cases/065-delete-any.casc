@@ -1,0 +1,8 @@
+#@version = 1.0
+a = 1
+b { c = 2, d = 3 }
+l = [1]
+-a
+-b.c
+-l
+-missing.path

@@ -1,0 +1,6 @@
+#@version = 1.0
+level = info
+level2 = :info
+remove = yes
+ready = ready!
+ask = enabled?

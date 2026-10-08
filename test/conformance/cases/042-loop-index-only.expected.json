@@ -1,0 +1,1 @@
+{"error":"loop","message":"a `for` loop needs at least one element binding (`@name in ...`) -- index-only is not allowed"}

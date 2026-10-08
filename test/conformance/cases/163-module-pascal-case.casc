@@ -1,0 +1,8 @@
+#@version = 1.0
+# A module name is dot-separated PascalCase, written the same for every
+# implementation (CASC.md 7.5).
+a = !module("Acme.Payments.StripeClient")
+b = !module("ASCO.HTTPClient")
+c = !module("Cooper")
+d = !module("  Foo.Bar  ")
+e = !module("${FORMATTER}")

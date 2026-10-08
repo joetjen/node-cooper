@@ -1,0 +1,1 @@
+{"error":"loop","message":"a `for` loop allows at most one index binding (`@name`)"}

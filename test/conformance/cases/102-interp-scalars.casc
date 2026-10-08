@@ -1,0 +1,9 @@
+#@version = 1.0
+@n = nil
+@t = true
+@a = info
+@d = 500ms
+@b = 2KiB
+@ip = 10.0.0.0/8
+@v6 = ::1
+v = "@{n}|@{t}|@{a}|@{d}|@{b}|@{ip}|@{v6}"

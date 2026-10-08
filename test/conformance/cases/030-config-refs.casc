@@ -1,0 +1,8 @@
+#@version = 1.0
+server.host = "api.internal"
+server.port = 8080
+health_check.url = "http://%{server.host}:%{server.port}/health"
+admin_email = %{contact.admin:"ops@example.com"}
+whole = %{server}
+later = %{defined_after}
+defined_after = 42

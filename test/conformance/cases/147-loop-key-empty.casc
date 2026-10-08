@@ -1,0 +1,2 @@
+#@version = 1.0
+for @x in [""] as out."@{x}" { v = 1 }

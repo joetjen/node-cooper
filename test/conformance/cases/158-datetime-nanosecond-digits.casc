@@ -1,0 +1,6 @@
+#@version = 1.0
+# Fractional digits past the sixth are truncated -- never rounded into the
+# next second -- and the precision stays six.
+nano = 1979-05-27T07:32:00.123456789Z
+tenth_micro = 1979-05-27T07:32:00.0000001Z
+almost = 1979-12-31T23:59:59.999999999-01:00

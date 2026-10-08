@@ -1,0 +1,4 @@
+#@version = 1.0
+# A consumer's tag is handed a float as a float: the oracle's !twice
+# doubles an integer and refuses everything else, 2.0 included.
+v = !twice(2.0)

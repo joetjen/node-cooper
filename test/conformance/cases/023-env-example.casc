@@ -1,0 +1,6 @@
+#@version = 1.0
+region = ${REGION}
+max_retries = !int(${MAX_RETRIES:3})
+${?FEATURE_FLAG}
+enabled = true
+allowed_hosts = ${ALLOWED_HOSTS[]:["localhost"]}

@@ -1,0 +1,5 @@
+#@version = 1.0
+@supervisor_ids = ["1", "2"]
+for @id in @{supervisor_ids} as tokens {
+  "@{id}" = ${"TOKEN_@{id}"}
+}

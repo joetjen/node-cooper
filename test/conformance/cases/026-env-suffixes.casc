@@ -1,0 +1,6 @@
+#@version = 1.0
+set = ${REGION:"other"}
+empty_is_unset = ${EMPTY:"dflt"}
+alt = ${REGION:+"was set"}
+alt_unset = ${NOPE:+"was set"}
+port_string = ${PORT}

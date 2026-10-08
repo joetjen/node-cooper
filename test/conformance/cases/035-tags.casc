@@ -1,0 +1,11 @@
+#@version = 1.0
+port = !int(${PORT:8080})
+debug = !bool(${DEBUG:false})
+ratio = !float("1.5")
+ratio_int = !float(2)
+wait = !duration("5m")
+mem = !bytes("512MiB")
+trimmed = !trim(${PADDED})
+up = !upcase("abc")
+down = !downcase("ABC")
+nested = !int(!trim(" 42 "))

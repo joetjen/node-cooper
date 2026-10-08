@@ -1,0 +1,4 @@
+#@version = 1.0
+database { user = "u" }
+~*database { host = "db.internal", password = "hunter2" }
+#~*database { host = "other" }

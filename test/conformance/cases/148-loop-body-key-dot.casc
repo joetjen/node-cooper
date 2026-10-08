@@ -1,0 +1,2 @@
+#@version = 1.0
+for @x in ["a"] as out { "k-@{x}.z" = 1 }

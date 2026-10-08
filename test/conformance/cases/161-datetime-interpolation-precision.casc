@@ -1,0 +1,9 @@
+#@version = 1.0
+# An offset datetime reads inside a string in UTC with its own fraction
+# digits -- trailing zeros included.
+@milli = 1979-05-27T07:32:00.120-02:00
+@zero = 1979-05-27T07:32:00.0Z
+@whole = 1979-05-27T07:32:00+05:30
+@nano = 1979-05-27T07:32:00.123456789Z
+text = "@{milli} | @{zero} | @{whole} | @{nano}"
+tagged = !upcase("at @{milli}")

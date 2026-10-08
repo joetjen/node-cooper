@@ -1,0 +1,9 @@
+#@version = 1.0
+defaults.replica {
+  cpu = 1
+  memory_mb = 512
+}
+@instances = ["a", "b", "c"]
+for @instance in @{instances} from defaults.replica as replicas."@{instance}" {
+  cpu = 2
+}

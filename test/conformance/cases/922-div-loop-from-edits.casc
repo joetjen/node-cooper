@@ -1,0 +1,6 @@
+#@version = 1.0
+t { list = [1], a = 1, b = 2 }
+for @x in ["p", "q"] from t as out."@{x}" {
+  +list = [@{x}]
+  -a
+}
