@@ -10,15 +10,23 @@
   "homepage": "https://github.com/joetjen/node-cooper",
   "type": "module",
   "main": "./src/cooper.cjs",
+  "types": "./types/cooper.d.cts",
   "exports": {
     ".": {
-      "import": "./src/cooper.js",
-      "require": "./src/cooper.cjs",
+      "import": {
+        "types": "./types/cooper.d.ts",
+        "default": "./src/cooper.js"
+      },
+      "require": {
+        "types": "./types/cooper.d.cts",
+        "default": "./src/cooper.cjs"
+      },
       "default": "./src/cooper.cjs"
     }
   },
   "files": [
     "src",
+    "types",
     "guides"
   ],
   "license": "Apache-2.0",
@@ -41,11 +49,13 @@
   "scripts": {
     "test": "npx mocha --recursive test/",
     "autotest": "npx mocha --recursive --watch test/",
-    "typecheck": "npx tsc --checkJs --noEmit",
+    "build:types": "rm -rf types && npx tsc -p tsconfig.build.json",
+    "typecheck": "npx tsc --checkJs --noEmit && npm run build:types && npx tsc --noEmit -p test/types",
     "precommit": "npm run typecheck && npm test",
     "docs": "npx typedoc",
     "oracle": "cd ../cooper && mix run ../node-cooper/scripts/oracle.exs ../node-cooper/test/conformance/cases",
-    "version": "npx auto-changelog --package --template keepachangelog && git add CHANGELOG.md"
+    "version": "npx auto-changelog --package --template keepachangelog && git add CHANGELOG.md",
+    "prepack": "npm run build:types"
   },
   "repository": {
     "type": "git",

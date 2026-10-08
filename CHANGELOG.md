@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-10-08
+
+### Fixed
+
+- **The package ships TypeScript declarations.** 0.1.0 had none: its
+  types lived only in JSDoc, which TypeScript does not read from a
+  package in `node_modules`, so every value from `@joetjen/cooper` was
+  an implicit `any` to a TypeScript application -- and a `checkJs`
+  project, `@joetjen/cooper-config` among them, did not type-check.
+  The declarations are generated from that JSDoc when the package is
+  packed, for the ES-module and CommonJS entries alike, and
+  `test/types` compiles an application of each kind against them.
+
 ## [0.1.0] - 2026-10-08
 
 Published as **`@joetjen/cooper`**, under the author's npm scope: the
