@@ -1,0 +1,6 @@
+#@version = 1.0
+@domains = ["us-east.example.com", "eu-west.example.com"]
+@ports = [8443, 8444]
+for @idx, @domain in @{domains}, @port in @{ports} as endpoints."domain-@{idx}" {
+  url = "https://@{domain}:@{port}"
+}

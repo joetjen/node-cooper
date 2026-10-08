@@ -1,0 +1,10 @@
+#@version = 1.0
+# The tagged forms follow the literal rules, and a huge count reads in its
+# base unit inside a string.
+@n = 300000000
+@d = !duration("@{n}d")
+@b = !bytes("20000000PiB")
+d = @{d}
+b = @{b}
+compound = !duration("1000000000000d1ns")
+text = "@{d} / @{b}"

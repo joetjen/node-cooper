@@ -1,0 +1,5 @@
+#@version = 1.0
+# The integer twin of 175: !twice(2) is 4.
+a = !twice(2)
+b = !twice(!int("2"))
+c = !twice(-2)

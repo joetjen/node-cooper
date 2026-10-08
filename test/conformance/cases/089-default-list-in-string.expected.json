@@ -1,0 +1,1 @@
+{"error":"resolve","message":"cannot interpolate [:a, \"b c\", \"d\"] into a string"}

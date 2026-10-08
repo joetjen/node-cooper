@@ -1,0 +1,4 @@
+#@version = 1.0
+import "imports/shadow_child.casc"
+@*name = "private"
+x = @{name}

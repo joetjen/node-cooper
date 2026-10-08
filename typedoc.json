@@ -1,0 +1,17 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src"],
+  "entryPointStrategy": "expand",
+  "tsconfig": "tsconfig.json",
+  "out": "doc",
+  "readme": "README.md",
+  "name": "node-cooper",
+  "includeVersion": true,
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "blockTags": ["@defaultValue","@deprecated","@example","@jsx","@param","@privateRemarks","@remarks","@returns","@see","@throws","@typeParam","@author","@callback","@category","@categoryDescription","@default","@document","@extends","@augments","@yields","@group","@groupDescription","@import","@inheritDoc","@license","@module","@mergeModuleWith","@prop","@property","@return","@satisfies","@since","@sortStrategy","@template","@this","@type","@typedef","@summary","@preventInline","@inlineType","@preventExpand","@expandType","@fileoverview"],
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  }
+}

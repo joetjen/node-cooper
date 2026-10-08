@@ -1,0 +1,2 @@
+#@version = 1.0
+for @x in ["://"] as out { s = ${SCHEME | trim_suffix: "@{x}"} }

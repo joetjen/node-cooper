@@ -1,0 +1,10 @@
+#@version = 1.0
+# `-key` removes by exact equality, which for a time or datetime includes
+# the number of fractional digits it was written with. An offset datetime
+# compares as its UTC instant.
+t = [07:32:00, 07:32:00.0, 07:32:00.000, 07:32:00.00]
+-t = [07:32:00.00]
+d = [1979-05-27T07:32:00, 1979-05-27T07:32:00.0]
+-d = [1979-05-27T07:32:00]
+o = [1979-05-27T07:32:00Z, 1979-05-27T07:32:00.0Z, 1979-05-27T08:32:00+01:00, 1979-05-27T07:32:00.000Z]
+-o = [1979-05-27T07:32:00Z]

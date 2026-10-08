@@ -1,0 +1,1 @@
+{"error":"loop","message":"a `%{...}` config reference can't be used as a loop iterable -- it only resolves after the full tree is merged, which happens after loop expansion"}

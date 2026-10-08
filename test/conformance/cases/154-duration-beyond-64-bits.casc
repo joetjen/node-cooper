@@ -1,0 +1,12 @@
+#@version = 1.0
+# A duration's nanosecond count is an integer like any other: past 64
+# bits it keeps every digit, a single unit and a compound literal alike:
+# both are computed exactly.
+huge = 300000000d
+separated = 300_000_000d
+nearest_double = 9007199254740993ns
+just_past = 9223372036854775807ns
+fraction = 12345678901234567890.5ms
+exact_sum = 1000000000000d1ns
+max_plus_one = 106751d23h47m16s854ms775us808ns
+fits = 100000d

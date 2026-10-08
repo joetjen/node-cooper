@@ -1,0 +1,3 @@
+#@version = 1.0
+t = [!bool("true"), !bool("1"), !bool("yes"), !bool("on")]
+f = [!bool("false"), !bool("0"), !bool("no"), !bool("off")]

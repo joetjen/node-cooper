@@ -1,0 +1,8 @@
+#@version = 1.0
+list1 = ["a", "b", "c"]
+list2 = [
+  "a"
+  "b"
+]
+mixed = [1 "two" 3.5, :four, [5]]
+empty = []

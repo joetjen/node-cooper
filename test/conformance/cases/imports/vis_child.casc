@@ -1,0 +1,5 @@
+#@version = 1.0
+@child_public = "child-pub"
+@*mine = "child-private"
+telemetry.service_name = "@{service}"
+child_sees_own_private = @{mine}

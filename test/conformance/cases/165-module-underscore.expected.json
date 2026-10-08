@@ -1,0 +1,1 @@
+{"error":"resolve","message":"!module(...) failed: cannot convert \"Foo_Bar\" to a module: not a dot-separated PascalCase module name"}

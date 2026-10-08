@@ -1,0 +1,6 @@
+#@version = 1.0
+# Offsets of half and quarter hours normalize to UTC with the fraction as
+# written.
+india = 1979-05-27T07:32:00.5+05:30
+newfoundland = 1979-05-27T07:32:00.25-03:30
+nepal = 1979-05-27T07:32:00+05:45

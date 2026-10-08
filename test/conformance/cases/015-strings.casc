@@ -1,0 +1,11 @@
+#@version = 1.0
+dq = "tab\there \"quoted\" back\\slash \u00e9"
+sq = 'no \n escapes @{here}'
+motd = """
+    Welcome to the service.
+    Status: operational
+    """
+triple_no_interp = """
+  keep @{this}
+  """
+empty = ""

@@ -1,0 +1,4 @@
+#@version = 1.0
+@region = ${REGION:"eu"}
+@host = "db.@{region}"
+host = @{host}

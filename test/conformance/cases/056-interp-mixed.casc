@@ -1,0 +1,4 @@
+#@version = 1.0
+@v = 1
+k = "a ${NOPE:\"q\" | trim} @{v:+3} b"
+j = "${REGION}/@{v}/%{k}"

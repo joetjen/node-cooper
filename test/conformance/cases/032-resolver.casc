@@ -1,0 +1,4 @@
+#@version = 1.0
+r = !{echo:secret/db/password}
+nested = !{echo:a{b{c}}d}
+in_string = "x-!{echo:y}-z"

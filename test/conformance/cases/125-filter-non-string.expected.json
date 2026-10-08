@@ -1,0 +1,1 @@
+{"error":"resolve","message":"%{n}: cannot apply filter \"trim\" to 42: not a string"}

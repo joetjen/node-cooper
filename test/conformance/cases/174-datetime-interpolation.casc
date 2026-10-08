@@ -1,0 +1,15 @@
+#@version = 1.0
+# An offset datetime interpolates in UTC, with a space for the T and its
+# own fraction digits -- through a list, a tag, a loop, and a secret.
+@nano = 1979-05-27T07:32:00.123456789Z
+@ist = 1979-05-27T07:32:00.0+05:30
+@whole = 1979-05-27T07:32:00Z
+@milli = 1979-05-27T07:32:00.120-01:00
+joined = "@{nano}|@{ist}|@{whole}|@{milli}"
+in_list = ["at @{ist}"]
+tagged = !trim("  @{milli}  ")
+@stamps = [@{nano}, @{whole}]
+for @i, @at in @{stamps} as stamped."s@{i}" {
+  text = "@{at}"
+}
+*when = "seen @{ist}"

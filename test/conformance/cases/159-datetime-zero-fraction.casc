@@ -1,0 +1,8 @@
+#@version = 1.0
+# A fraction of zeros is still a fraction: `.0` and `.000` keep their
+# digits, and differ from a whole second and from each other.
+one = 1979-05-27T07:32:00.0Z
+three = 1979-05-27T07:32:00.000+05:30
+whole = 1979-05-27T07:32:00Z
+l = [1979-05-27T07:32:00Z, 1979-05-27T07:32:00.0Z, 1979-05-27T07:32:00.000Z]
+-l = [1979-05-27T07:32:00.0Z]

@@ -1,0 +1,14 @@
+#@version = 1.0
+b = 512B
+kb = 1kB
+mb = 10MB
+gb = 10GB
+tb = 1TB
+pb = 1PB
+kib = 1KiB
+mib = 512MiB
+gib = 1GiB
+tib = 1TiB
+pib = 1PiB
+frac = 1.5GiB
+lower = 5mib
