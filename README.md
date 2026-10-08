@@ -190,7 +190,8 @@ Cache events go out on two `node:diagnostics_channel` channels:
 npm install @joetjen/cooper
 ```
 
-Node.js 20 or later. No runtime dependencies.
+Node.js 20 or later. No runtime dependencies. TypeScript declarations
+ship with the package, for `import` and `require` alike.
 
 ## Where to go next
 
