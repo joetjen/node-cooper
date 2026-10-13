@@ -90,10 +90,17 @@ describe('end to end: atoms (CASC.md §6.4)', () => {
     expect(value(':inf')).to.equal(Symbol.for('inf'));
   });
 
+  // **A name may begin with `_`** (CASC.md §4.1): `__sentry__` could not
+  // be written at all, bare or with its colon.
+  it('an atom may begin with an underscore', () => {
+    expect(value('__sentry__')).to.equal(Symbol.for('__sentry__'));
+    expect(value(':__sentry__')).to.equal(Symbol.for('__sentry__'));
+  });
+
   it('any identifier-rule name loads as the atom of that name', () => {
     const values = new Set(['nil', 'true', 'false']);
     fc.assert(
-      fc.property(fc.stringMatching(/^[a-zA-Z][a-zA-Z0-9_+-]{0,10}[?!]?$/), fc.boolean(), (name, colon) => {
+      fc.property(fc.stringMatching(/^[a-zA-Z_][a-zA-Z0-9_+-]{0,10}[?!]?$/), fc.boolean(), (name, colon) => {
         // `:nil`/`:true`/`:false` are values, and a bare `inf` is infinity.
         fc.pre(!values.has(name) && (name !== 'inf' || colon));
         // A name shaped like a duration/byte unit never starts with a letter, so no ambiguity here.

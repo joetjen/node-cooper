@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-10-13
+
+### Fixed
+
+- **A name may begin with `_`** (CASC.md §4.1), as in the reference
+  implementation. Keys, atoms and variable names share one rule, and it
+  asked for a letter first, so `__sentry__` could not be written as an
+  atom -- bare or as `:__sentry__` -- nor `__foo__` as a key or a
+  variable. Conformance case `014-underscore-names`.
+
 ## [0.1.1] - 2026-10-08
 
 ### Fixed

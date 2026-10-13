@@ -153,7 +153,9 @@ const TOKENS = [
   ['TRUE_KW', sticky(/true/y)],
   ['FALSE_KW', sticky(/false/y)],
   ['INF_KW', sticky(/[+-]inf(?![A-Za-z0-9_+\-?!])|inf/y)],
-  ['IDENT', sticky(/[a-zA-Z][a-zA-Z0-9_+-]*[?!]?/y)],
+  // A name may begin with `_` (CASC.md §4.1) -- `__sentry__`, `__foo__`.
+  // Nothing else starts with one: a digit separator is only inside a number.
+  ['IDENT', sticky(/[a-zA-Z_][a-zA-Z0-9_+-]*[?!]?/y)],
   ['DATE', sticky(/\d{4}-\d{2}-\d{2}/y)],
   ['TIME', sticky(/\d{2}:\d{2}:\d{2}(?:\.\d+)?/y)],
   ['DATETIME', sticky(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})?/y)],
