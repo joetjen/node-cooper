@@ -42,6 +42,27 @@ const REF_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/;
 const MISSING = { ok: false };
 
 /**
+ * The rest of a `%{...}` path through a value already fully resolved:
+ * plain objects, and a secret one (a loop body's `*site` copying a block
+ * element), whose value found inside stays secret -- secrecy travels
+ * with the value, as `applyIndex` keeps it for an element of a secret
+ * list. Anything else on the way leaves the path undefined.
+ * @param {unknown} value
+ * @param {string[]} path
+ * @returns {Fetch}
+ */
+function fetchResolvedPath(value, path) {
+  if (path.length === 0) return { ok: true, value };
+  if (value instanceof Secret) {
+    const inner = fetchResolvedPath(value.value, path);
+    if (!inner.ok || inner.value instanceof Secret) return inner;
+    return { ok: true, value: new Secret(inner.value) };
+  }
+  if (!isPlainObject(value) || !Object.hasOwn(value, path[0])) return MISSING;
+  return fetchResolvedPath(value[path[0]], path.slice(1));
+}
+
+/**
  * @param {string} message
  * @returns {CooperError}
  */
@@ -245,6 +266,10 @@ class Resolver {
   /**
    * The resolved value at `path` in the final tree, memoized; a path
    * reached again while still being resolved is a cycle.
+   *
+   * `path` is in progress from before its fetch: reaching it may resolve
+   * a node along the way (`fetchTreePath`), and one that leads back here
+   * is part of the cycle -- so `a = %{a.b}` reports `a.b -> a -> a.b`.
    * @param {string[]} path
    * @returns {Pipeline<Fetch>}
    */
@@ -255,9 +280,12 @@ class Resolver {
       const chain = [...this.inProgress, path].map((p) => p.join('.')).join(' -> ');
       throw resolveError(`circular %{...} reference: ${chain}`);
     }
-    const raw = yield* this.fetchTreePath(/** @type {Record<string, unknown>} */ (this.tree), path);
-    if (!raw.ok) return MISSING;
     this.inProgress.push(path);
+    const raw = yield* this.fetchTreePath(/** @type {Record<string, unknown>} */ (this.tree), path, []);
+    if (!raw.ok) {
+      this.inProgress.pop();
+      return MISSING;
+    }
     const value = yield* this.resolve(raw.value);
     this.inProgress.pop();
     this.pathCache.set(key, value);
@@ -265,21 +293,40 @@ class Resolver {
   }
 
   /**
-   * Walks the unresolved tree, resolving a `Layered` loop base (or a
-   * secret-wrapped map) on the way through so a path can continue into it.
+   * Walks the unresolved tree along `path`, resolving a `Layered` loop
+   * base on the way through so the path can continue into it.
+   *
+   * The same holds for any other unresolved node the path runs through
+   * -- a reference, a loop's copied block element, a secret, a tagged
+   * value: CASC.md §7.3 resolves against the final tree, in which
+   * `origin = %{origins.eu}` *is* the `origins.eu` block, so
+   * `%{origin.code}` must find its `code`. Such a node is resolved
+   * through `resolvePath` under the path walked so far (`walked`), so it
+   * is cached once and a reference into its own value is reported as the
+   * cycle it is. Its resolved value is fully resolved, so the rest of the
+   * walk goes through plain objects (`fetchResolvedPath`); a value
+   * that resolves to a secret map is walked into, and what it finds
+   * stays secret; anything else -- a scalar, a list -- leaves the path
+   * undefined, as in the reference implementation.
    * @param {unknown} node
    * @param {string[]} path
+   * @param {string[]} walked -- the segments of the path already walked
    * @returns {Pipeline<Fetch>}
    */
-  *fetchTreePath(node, path) {
+  *fetchTreePath(node, path, walked) {
     if (path.length === 0) return { ok: true, value: node };
-    if (node instanceof Layered) return yield* this.fetchTreePath(yield* this.resolveLayered(node), path);
-    if (node instanceof Secret) {
-      const inner = yield* this.fetchTreePath(yield* this.resolve(node.value), path);
-      return inner.ok ? { ok: true, value: new Secret(Secret.reveal(inner.value)) } : inner;
+    if (node instanceof Layered) return yield* this.fetchTreePath(yield* this.resolveLayered(node), path, walked);
+    if (isPlainObject(node)) {
+      if (!Object.hasOwn(node, path[0])) return MISSING;
+      return yield* this.fetchTreePath(node[path[0]], path.slice(1), [...walked, path[0]]);
     }
-    if (!isPlainObject(node) || !Object.hasOwn(node, path[0])) return MISSING;
-    return yield* this.fetchTreePath(node[path[0]], path.slice(1));
+    // Any other object (a node or a value class) may stand for a map
+    // once resolved; a scalar or a list cannot.
+    if (node !== null && typeof node === 'object' && !Array.isArray(node) && walked.length > 0) {
+      const resolved = yield* this.resolvePath(walked);
+      return resolved.ok ? fetchResolvedPath(resolved.value, path) : MISSING;
+    }
+    return MISSING;
   }
 
   // ---- interpolated keys and element blocks ---------------------------------
