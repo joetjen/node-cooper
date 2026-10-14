@@ -173,6 +173,53 @@ describe('resolver: %{} config references (CASC.md §7.3)', () => {
   it('an undefined path without a default is a resolve error', () => {
     loadError('a = %{no.such.path}', {}, 'resolve');
   });
+
+  it('a path is followed through a value that is itself a reference', () => {
+    const source = ['origins.eu.code = "EU"', 'origins.us.code = "US"', 'origin = %{origins.eu}', 'code = %{origin.code}'].join('\n');
+    expect(load(source).code).to.equal('EU');
+  });
+
+  it('a path is followed through a chain of references', () => {
+    expect(load('a.b.c = 1\nx = %{a}\ny = %{x.b}\nz = %{y.c}').z).to.equal(1);
+  });
+
+  it('a path is followed through a loop variable bound to a block element', () => {
+    const source = [
+      '@origins = [{ code = "EU" }]',
+      'for @o in @{origins} as picked.first {',
+      '  origin = @{o}',
+      '}',
+      'code = %{picked.first.origin.code}',
+    ].join('\n');
+    expect(load(source).code).to.equal('EU');
+  });
+
+  it('a path is followed into a secret block element, and what it finds stays secret', () => {
+    const source = [
+      '@sites = [{ host = "a" }]',
+      'for @s in @{sites} as picked.first {',
+      '  *site = @{s}',
+      '}',
+      'host = %{picked.first.site.host}',
+    ].join('\n');
+    const { host } = load(source);
+    expect(host).to.be.instanceOf(Secret);
+    expect(Secret.reveal(host)).to.equal('a');
+  });
+
+  it('a key missing behind a reference takes the default', () => {
+    expect(load('origins.eu.code = "EU"\norigin = %{origins.eu}\nname = %{origin.name:"none"}').name).to.equal('none');
+  });
+
+  it('a path cannot be followed into a reference to a scalar', () => {
+    const { message } = loadError('a = 1\nb = %{a}\nc = %{b.d}', {}, 'resolve');
+    expect(message).to.include('%{b.d}');
+  });
+
+  it('a reference into its own value is a cycle', () => {
+    const { message } = loadError('a = %{a.b}', {}, 'resolve');
+    expect(message).to.equal('circular %{...} reference: a.b -> a -> a.b');
+  });
 });
 
 describe('resolver: !{resolver:payload} dispatch (CASC.md §7.4, §9.4)', () => {

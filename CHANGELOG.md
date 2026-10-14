@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-10-14
+
+### Fixed
+
+- **A `%{...}` path is followed through a reference** (CASC.md §7.3),
+  as in the reference implementation. With `origin = %{origins.eu}`,
+  `%{origin.code}` was an undefined reference: the path was looked up
+  in the unresolved tree, and stopped at the reference it ran into. It
+  resolves against the final tree, as §7.3 always said, so it finds
+  `origins.eu.code` -- through a chain of references too, and through
+  any other value that resolves to a map -- into a secret block
+  element too, where what it finds stays secret. A path through its own key
+  (`a = %{a.b}`) is a cycle, reported as `a.b -> a -> a.b`. Conformance
+  cases `188-ref-through-ref`, `189-ref-through-own-key`,
+  `190-ref-through-scalar` and `191-ref-into-secret-block`.
+
 ## [0.1.2] - 2026-10-13
 
 ### Fixed
