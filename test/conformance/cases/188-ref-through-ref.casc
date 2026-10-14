@@ -1,0 +1,13 @@
+#@version = 1.0
+origins.eu { code = "EU", name = "Europe" }
+origins.us { code = "US", name = "United States" }
+origin = %{origins.eu}
+code = %{origin.code}
+x = %{origin}
+chained = %{x.name}
+missing = %{origin.zone:"none"}
+@sites = [{ host = "a" }]
+for @s in @{sites} as picked.first {
+  site = @{s}
+}
+host = %{picked.first.site.host}
