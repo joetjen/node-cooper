@@ -8,8 +8,11 @@ Every section is additionally covered by the differential conformance
 suite (`conformance/oracle.spec.js`). Each `conformance/cases/*.casc` is
 checked against the Elixir reference implementation; no case has a
 Node-specific override. The `!module` cases run with the one Node-only
-option, a `modules` mapping (`conformance/options.js`,
-`conformance/DIVERGENCES.md`).
+option, a `modules` mapping (`conformance/options.js`, which takes the
+Cooper Conformance Suite's options from `src/conformance.cjs`;
+`conformance/DIVERGENCES.md`). The suite's adapter itself, its typed
+JSON and its §9.5 error categories, is covered by
+`conformance/adapter.spec.js`.
 
 Legend: ✅ covered · ⚠️ partially covered or known gap · N/A out of scope
 per the spec itself.
