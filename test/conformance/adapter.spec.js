@@ -68,38 +68,38 @@ describe('the conformance adapter: a value in the suite\'s typed JSON', () => {
   });
 
   it('a duration and a byte size are tagged with their base unit', () => {
-    expect(Conformance.encode(new Duration(300000000000n))).to.deep.equal(tagged('casc.duration', { integer: '300000000000' }));
-    expect(Conformance.encode(new ByteSize(512n))).to.deep.equal(tagged('casc.bytes', { integer: '512' }));
+    expect(Conformance.encode(new Duration(300000000000n))).to.deep.equal(tagged('casc/duration', { integer: '300000000000' }));
+    expect(Conformance.encode(new ByteSize(512n))).to.deep.equal(tagged('casc/bytes', { integer: '512' }));
   });
 
   it('a secret is tagged, and carries its shown form when partly redacted', () => {
-    expect(Conformance.encode(new Secret('s'))).to.deep.equal(tagged('casc.secret', 's'));
+    expect(Conformance.encode(new Secret('s'))).to.deep.equal(tagged('casc/secret', 's'));
     expect(Conformance.encode(new Secret('http://a', 'http://[~~REDACTED~~]'))).to.deep.equal(
-      tagged('casc.secret', 'http://a', 'http://[~~REDACTED~~]')
+      tagged('casc/secret', 'http://a', 'http://[~~REDACTED~~]')
     );
   });
 
   it('a module is tagged with its name as CASC writes it', () => {
-    expect(Conformance.encode(new ModuleRef('Foo.Bar', 'node:path'))).to.deep.equal(tagged('casc.module', 'Foo.Bar'));
+    expect(Conformance.encode(new ModuleRef('Foo.Bar', 'node:path'))).to.deep.equal(tagged('casc/module', 'Foo.Bar'));
   });
 
   it('infinity is a tagged float', () => {
-    expect(Conformance.encode(Infinity)).to.deep.equal(tagged('casc.float', 'inf'));
-    expect(Conformance.encode(-Infinity)).to.deep.equal(tagged('casc.float', '-inf'));
+    expect(Conformance.encode(Infinity)).to.deep.equal(tagged('casc/float', 'inf'));
+    expect(Conformance.encode(-Infinity)).to.deep.equal(tagged('casc/float', '-inf'));
   });
 
   it('an IP address is tagged with its canonical text', () => {
-    expect(Conformance.encode(IPv4.parse('10.0.0.1'))).to.deep.equal(tagged('casc.ipv4', '10.0.0.1'));
-    expect(Conformance.encode(IPv6.parse('::1'))).to.deep.equal(tagged('casc.ipv6', '::1'));
+    expect(Conformance.encode(IPv4.parse('10.0.0.1'))).to.deep.equal(tagged('casc/ipv4', '10.0.0.1'));
+    expect(Conformance.encode(IPv6.parse('::1'))).to.deep.equal(tagged('casc/ipv6', '::1'));
   });
 
   it('dates and times are tagged ISO 8601', () => {
-    expect(Conformance.encode(new LocalDate(2026, 10, 18))).to.deep.equal(tagged('casc.date', '2026-10-18'));
-    expect(Conformance.encode(new LocalTime(7, 32, 0))).to.deep.equal(tagged('casc.time', '07:32:00'));
+    expect(Conformance.encode(new LocalDate(2026, 10, 18))).to.deep.equal(tagged('casc/date', '2026-10-18'));
+    expect(Conformance.encode(new LocalTime(7, 32, 0))).to.deep.equal(tagged('casc/time', '07:32:00'));
     expect(Conformance.encode(new LocalDateTime(2026, 10, 18, 7, 32, 0))).to.deep.equal(
-      tagged('casc.local-date-time', '2026-10-18T07:32:00')
+      tagged('casc/local-date-time', '2026-10-18T07:32:00')
     );
-    expect(Conformance.encode(new DateTime(2026, 10, 18, 7, 32, 0))).to.deep.equal(tagged('casc.date-time', '2026-10-18T07:32:00Z'));
+    expect(Conformance.encode(new DateTime(2026, 10, 18, 7, 32, 0))).to.deep.equal(tagged('casc/date-time', '2026-10-18T07:32:00Z'));
   });
 
   it('a value with no typed form is refused', () => {
@@ -137,7 +137,7 @@ describe('the conformance adapter: answering a request', () => {
 
   it('a module the suite names loads, and answers its name', () => {
     const { results } = Conformance.answer({ cases: [load('module.casc')] });
-    expect(results[0].result).to.deep.equal({ map: [['formatter', tagged('casc.module', 'Foo.Bar')]] });
+    expect(results[0].result).to.deep.equal({ map: [['formatter', tagged('casc/module', 'Foo.Bar')]] });
   });
 
   it('a document that is refused answers its category', () => {
