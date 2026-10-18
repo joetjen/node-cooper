@@ -33,10 +33,10 @@
  * `{"float": "2.0"}`, `{"keyword": "info"}`, `{"tuple": [...]}`,
  * `{"map": [[key, value], ...]}`, arrays, and strings, booleans and
  * `null` as they are. What CASC has and Praxis notation has no literal
- * for is a tuple tagged with a dotted keyword -- `casc.duration`,
- * `casc.bytes`, `casc.secret`, `casc.module`, `casc.float`, `casc.ipv4`,
- * `casc.ipv6`, `casc.date`, `casc.time`, `casc.local-date-time`,
- * `casc.date-time` -- which no CASC atom can be, so a tag never reads as
+ * for is a tuple tagged with a namespaced keyword -- `casc/duration`,
+ * `casc/bytes`, `casc/secret`, `casc/module`, `casc/float`, `casc/ipv4`,
+ * `casc/ipv6`, `casc/date`, `casc/time`, `casc/local-date-time`,
+ * `casc/date-time` -- which no CASC atom can be, so a tag never reads as
  * a tuple a document wrote.
  *
  * ## Floats
@@ -207,23 +207,23 @@ function encode(value) {
   if (typeof value === 'symbol' && value.description !== undefined) return { keyword: value.description };
   if (Array.isArray(value)) return value.map(encode);
   if (value instanceof Tuple) return { tuple: value.items.map(encode) };
-  if (value instanceof Duration) return tagged('casc.duration', encode(value.nanoseconds));
-  if (value instanceof ByteSize) return tagged('casc.bytes', encode(value.bytes));
+  if (value instanceof Duration) return tagged('casc/duration', encode(value.nanoseconds));
+  if (value instanceof ByteSize) return tagged('casc/bytes', encode(value.bytes));
   if (value instanceof Secret) {
-    return value.redacted === null ? tagged('casc.secret', encode(value.value)) : tagged('casc.secret', encode(value.value), value.redacted);
+    return value.redacted === null ? tagged('casc/secret', encode(value.value)) : tagged('casc/secret', encode(value.value), value.redacted);
   }
   // A module built by `!module(...)` (§7.5) travels by the name CASC
   // wrote, so every implementation compares the name rather than its
   // host's value.
-  if (value instanceof ModuleRef) return tagged('casc.module', value.name);
-  if (value instanceof IPv4) return tagged('casc.ipv4', value.toString());
-  if (value instanceof IPv6) return tagged('casc.ipv6', value.toString());
+  if (value instanceof ModuleRef) return tagged('casc/module', value.name);
+  if (value instanceof IPv4) return tagged('casc/ipv4', value.toString());
+  if (value instanceof IPv6) return tagged('casc/ipv6', value.toString());
   // Each `toString()` writes what Elixir's `to_iso8601/1` does for the
   // reference's value, precision included.
-  if (value instanceof LocalDate) return tagged('casc.date', value.toString());
-  if (value instanceof LocalTime) return tagged('casc.time', value.toString());
-  if (value instanceof LocalDateTime) return tagged('casc.local-date-time', value.toString());
-  if (value instanceof DateTime) return tagged('casc.date-time', value.toString());
+  if (value instanceof LocalDate) return tagged('casc/date', value.toString());
+  if (value instanceof LocalTime) return tagged('casc/time', value.toString());
+  if (value instanceof LocalDateTime) return tagged('casc/local-date-time', value.toString());
+  if (value instanceof DateTime) return tagged('casc/date-time', value.toString());
   if (isPlainObject(value)) {
     return {
       map: Object.keys(value)
@@ -242,8 +242,8 @@ function encode(value) {
  * @returns {unknown}
  */
 function encodeNumber(n, isFloat = false) {
-  if (n === Infinity) return tagged('casc.float', 'inf');
-  if (n === -Infinity) return tagged('casc.float', '-inf');
+  if (n === Infinity) return tagged('casc/float', 'inf');
+  if (n === -Infinity) return tagged('casc/float', '-inf');
   if (Number.isNaN(n)) throw new TypeError('no typed form for NaN');
   if (!isFloat && Number.isInteger(n)) return { integer: BigInt(n).toString() };
   return { float: formatFloat(n) };
@@ -261,7 +261,7 @@ function byBytes(a, b) {
 }
 
 /**
- * A tuple tagged with a dotted keyword.
+ * A tuple tagged with a namespaced keyword.
  * @param {string} tag
  * @param {...unknown} items
  * @returns {{tuple: unknown[]}}

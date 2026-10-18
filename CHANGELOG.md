@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   cases and writes one answer per case, in order: the loaded
   configuration in the suite's typed JSON (`{"integer": "42"}`,
   `{"float": "2.0"}`, `{"keyword": "info"}`, `{"map": [...]}`, and
-  tuples tagged `casc.duration`, `casc.secret`, `casc.module`, ... for
+  tuples tagged `casc/duration`, `casc/secret`, `casc/module`, ... for
   what has no literal), or the CASC.md §9.5 category of the error that
   refused it. A whole float stays a float in the answer, though a loaded
   config holds it as a plain `number`. The package now has a `cooper`
