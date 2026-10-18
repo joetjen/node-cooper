@@ -1,7 +1,0 @@
-#@version = 1.0
-key
-"value"
-server
-{
-  port = 1
-}

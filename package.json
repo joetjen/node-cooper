@@ -56,7 +56,6 @@
     "typecheck": "npx tsc --checkJs --noEmit && npm run build:types && npx tsc --noEmit -p test/types",
     "precommit": "npm run typecheck && npm test",
     "docs": "npx typedoc",
-    "oracle": "cd ../cooper && mix run ../node-cooper/scripts/oracle.exs ../node-cooper/test/conformance/cases",
     "prepack": "npm run build:types"
   },
   "repository": {

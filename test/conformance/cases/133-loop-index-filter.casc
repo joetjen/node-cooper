@@ -1,2 +1,0 @@
-#@version = 1.0
-for @i, @x in ["a", "b"] as out."@{x}" { n = "@{i}" }

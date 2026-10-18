@@ -1,5 +1,0 @@
-#@version = 1.0
-all = ${LIST[]}
-second = ${LIST[1]}
-fallback = ${NOPE[]:["localhost"]}
-idx_default = ${NOPE[0]:"x"}

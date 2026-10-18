@@ -1,3 +1,0 @@
-#@version = 1.0
-a = ${NOPE:"a|b" | upcase}
-b = "${NOPE:\"c|d\" | upcase}"

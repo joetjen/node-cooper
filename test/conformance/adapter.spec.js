@@ -170,7 +170,7 @@ describe('the conformance adapter: answering a request', () => {
     expect(results.map((/** @type {any} */ r) => r.id)).to.deep.equal(['c: refused.casc', 'c: plain.casc', 'c: module.casc']);
   });
 
-  it('loads with the suite\'s standard options, the same the corpus runs with', () => {
+  it('loads with the suite\'s standard options', () => {
     const opts = Conformance.loadOptions('/somewhere');
     expect(opts.env).to.deep.equal(Conformance.ENV);
     expect(opts.dotenv).to.equal(false);

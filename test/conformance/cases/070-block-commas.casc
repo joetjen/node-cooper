@@ -1,2 +1,0 @@
-#@version = 1.0
-server { host = "a", port = 1, }
