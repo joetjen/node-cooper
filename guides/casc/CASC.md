@@ -395,7 +395,7 @@ A single-unit literal may be fractional (`1.5h`); a compound literal (multiple u
 **Result** (`timeout` above, illustrating the resolved shape — the exact tag/base-unit is implementation-defined):
 
 ```elixir
-%{"timeout" => {:duration, 500_000_000}}
+%{"timeout" => %Cooper.Duration{nanoseconds: 500_000_000}}
 ```
 
 Also reachable as a tagged value (§7.5) — `!duration("5m")` — for computed/interpolated values; the bare literal is recommended when static.
@@ -417,7 +417,7 @@ The numeral may be fractional (`1.5GiB`).
 **Result** (`memory_limit` above):
 
 ```elixir
-%{"memory_limit" => {:bytes, 536_870_912}}
+%{"memory_limit" => %Cooper.ByteSize{bytes: 536_870_912}}
 ```
 
 Also reachable as `!bytes("512MiB")` (§7.5), for computed/interpolated values.
@@ -469,7 +469,7 @@ Comma, newline, or whitespace separate elements, same as lists. `;` and `|` are 
 
 Three brace-delimited sigils, plus two extensibility mechanisms sharing the same shape (§9).
 
-**A value interpolated into a string reads as CASC writes it:** `nil`, `true`, `false`, `inf`, `-inf`; an atom as its name; a duration in nanoseconds (`500000000ns`) and a byte size in bytes (`2048B`); an IP address or network as written in canonical form; a float as the shortest digits that read back as the same float, written as a plain decimal or with an exponent, whichever is shorter (the decimal on a tie), and always with a fraction (`1.0`, `52.52`, `100.0`, `0.0001`, `1.0e3`, `1.0e-5`). A list, a tuple or a map has no string form, and interpolating one is a load error.
+**A value interpolated into a string reads as CASC writes it:** `nil`, `true`, `false`, `inf`, `-inf`; an atom as its name; a duration in nanoseconds (`500000000ns`) and a byte size in bytes (`2048B`); an IP address or network as written in canonical form; a module (§7.5) as the name the document wrote, dot-separated PascalCase (`Foo.Bar`), whatever the implementation holds it as; a float as the shortest digits that read back as the same float, written as a plain decimal or with an exponent, whichever is shorter (the decimal on a tie), and always with a fraction (`1.0`, `52.52`, `100.0`, `0.0001`, `1.0e3`, `1.0e-5`). A list, a tuple or a map has no string form, and interpolating one is a load error.
 
 ### 7.1 Variables
 
