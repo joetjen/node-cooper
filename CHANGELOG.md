@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- The spec copy (`guides/casc/CASC.md`) takes §7's rule that a module
+  interpolated into a string reads as the name the document wrote
+  (`Foo.Bar`), which this implementation already did.
+
 - **Error categories are part of the language** (CASC.md §9.5): every
   load-time error belongs to one of `lexer`, `parser`, `action`,
   `import`, `merge`, `loop`, `resolve` and `dotenv` -- the stages this
