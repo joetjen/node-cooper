@@ -220,6 +220,18 @@ module is a location rather than a name. That and the JS value model's
 other host differences are listed in
 [`DIVERGENCES.md`](test/conformance/DIVERGENCES.md).
 
+The Cooper Conformance Suite, which holds every implementation to the
+same cases, runs this one through its adapter:
+
+```sh
+cooper conformance REQUEST ANSWER        # installed
+node bin/cooper.js conformance REQUEST ANSWER   # in a checkout
+```
+
+It reads the suite's JSON request and writes one answer per case: the
+loaded value in the suite's typed JSON, or the category of the error
+that refused it.
+
 | Language | Package | Source |
 | --- | --- | --- |
 | Elixir | [`cooper` on Hex.pm](https://hex.pm/packages/cooper) | [joetjen/cooper](https://github.com/joetjen/cooper) |

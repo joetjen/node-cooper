@@ -39,6 +39,11 @@ in its own right.
 - `src/dotenv.cjs`: `.env` layering and the built-in parser.
 - `src/cache.cjs`: the `loadFile` cache and its
   `diagnostics_channel` events.
+- `src/conformance.cjs`: the Cooper Conformance Suite adapter, and the
+  load options the suite and the corpus share. `bin/cooper.js` is the
+  `cooper` CLI that runs it (`cooper conformance REQUEST ANSWER`); the
+  adapter is reached through the CLI, not exported from the package
+  entry.
 - `test/`: one directory per concern (`values/`, `grammar/`,
   `pipeline/`), plus:
   - `test/conformance/`: differential testing against the Elixir
@@ -70,7 +75,7 @@ re-export alongside it. Any export change touches both.
    inherent to the host language would get this port's result in
    `<case>.node.json` and a row in `test/conformance/DIVERGENCES.md`;
    today there are none. A case that loads a `!module("Name")` needs
-   that name in the `modules` mapping in `test/conformance/options.js`.
+   that name in `MODULES` in `src/conformance.cjs`.
    Never hand-edit an `.expected.json`.
 3. **Both drivers.** Anything that calls user code (resolvers, tags,
    import-scheme loaders) has to work under `loadString` (async) and

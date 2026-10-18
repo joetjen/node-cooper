@@ -24,10 +24,14 @@
       "default": "./src/cooper.cjs"
     }
   },
+  "bin": {
+    "cooper": "./bin/cooper.js"
+  },
   "files": [
     "src",
     "types",
-    "guides"
+    "guides",
+    "bin"
   ],
   "license": "Apache-2.0",
   "directories": {

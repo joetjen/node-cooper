@@ -52,8 +52,13 @@ in `DIVERGENCES.md`, not left implicit.
   would get a `<case>.node.json` with this port's result, plus a row in
   `DIVERGENCES.md`, in the same change. Today there are none. The one
   Node-only load option the corpus runs with is `modules` (a Node
-  module is a location, so `!module` needs a mapping; see
-  `test/conformance/options.js`).
+  module is a location, so `!module` needs a mapping; see `MODULES` in
+  `src/conformance.cjs`, which `test/conformance/options.js` takes its
+  options from).
+- `src/conformance.cjs` is the Cooper Conformance Suite adapter
+  (`node bin/cooper.js conformance REQUEST ANSWER`), the port of the
+  reference's `Cooper.Conformance`. It answers exactly as that does:
+  change the two together.
 - Any other disagreement with the reference is a bug to fix, never an
   override: in this port, or, if the reference is the one at fault, in
   the reference first. Never introduce a divergence silently.

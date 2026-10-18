@@ -19,7 +19,9 @@ every case compares against the reference's own result.
 ## The one Node-only option: `modules`
 
 `options.js` runs every case with the same options as `Oracle.opts/1` in
-`scripts/oracle.exs`, plus one: a `modules` mapping.
+`scripts/oracle.exs`, plus one: a `modules` mapping. It takes them from
+`src/conformance.cjs`, the Cooper Conformance Suite adapter, so the
+corpus and the suite load alike; the mapping is its `MODULES`.
 
 A `!module("Name")` name is written the same way for every
 implementation, dot-separated PascalCase (CASC.md §7.5). The reference
@@ -47,6 +49,11 @@ its shape, before the mapping is asked.
   reads `1.0`, `-a = [1.0]` does not remove `1`, `!float(7)` is a float,
   and a consumer's tag is handed a `CooperFloat`, so `!twice(2.0)` fails
   as in the reference (case `175`).
+
+  The Cooper Conformance Suite's adapter (`src/conformance.cjs`) needs
+  no such evening out: it takes the resolved tree before its floats are
+  unwrapped, so it answers `2.0` as `{"float": "2.0"}`, exactly as the
+  reference does.
 
 Everything else compares exactly, offset datetimes included: a
 `DateTime` keeps the reference's microseconds and fraction digits.
