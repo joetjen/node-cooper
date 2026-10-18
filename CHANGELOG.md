@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Error categories are part of the language** (CASC.md §9.5): every
+  load-time error belongs to one of `lexer`, `parser`, `action`,
+  `import`, `merge`, `loop`, `resolve` and `dotenv` -- the stages this
+  implementation already reported. The spec copy is updated.
+
 - **The Cooper Conformance Suite adapter**, `cooper conformance REQUEST
   ANSWER` (`node bin/cooper.js conformance REQUEST ANSWER` in a
   checkout): the suite that holds every CASC implementation to the same
