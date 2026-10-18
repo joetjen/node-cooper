@@ -40,21 +40,19 @@ in its own right.
 - `src/cache.cjs`: the `loadFile` cache and its
   `diagnostics_channel` events.
 - `src/conformance.cjs`: the Cooper Conformance Suite adapter, and the
-  load options the suite and the corpus share. `bin/cooper.js` is the
+  load options the suite fixes. `bin/cooper.js` is the
   `cooper` CLI that runs it (`cooper conformance REQUEST ANSWER`); the
   adapter is reached through the CLI, not exported from the package
   entry.
 - `test/`: one directory per concern (`values/`, `grammar/`,
   `pipeline/`), plus:
-  - `test/conformance/`: differential testing against the Elixir
-    reference (see below), with `DIVERGENCES.md`.
+  - `test/conformance/`: the adapter's own tests, and
+    `DIVERGENCES.md`, the host differences from the Elixir reference.
   - `test/SPEC_COVERAGE.md`: maps every CASC.md section to its tests.
   - `test/fixtures/`: on-disk import and `.env` fixtures.
 - `guides/`: this project's `TUTORIAL.md`/`EXAMPLES.md`/`CHEATSHEET.md`,
   plus `guides/casc/`, the implementation-independent CASC spec, vendored
   unchanged from the Elixir project.
-- `scripts/oracle.exs`: the conformance oracle, run inside a `cooper`
-  checkout.
 
 Every public module under `src/` ships as a `.cjs` file, the real
 implementation and `require()`-able directly, with a thin `.js` ESM
@@ -66,17 +64,18 @@ re-export alongside it. Any export change touches both.
    should come with a test exercising real input/output behavior, not
    just "does this parse." Update `test/SPEC_COVERAGE.md` alongside any
    change to what's covered.
-2. **Check it against the reference.** Add a `.casc` case to
-   `test/conformance/cases/`. With Elixir installed and a `cooper`
-   checkout at `../cooper`, run `npm run oracle` to generate its
-   `.expected.json` from the Elixir implementation, then `npm test`. The
+2. **Check it against the reference.** Behavior is checked across
+   implementations by the Cooper Conformance Suite in the praxis
+   repository (`libs_prx/cooper_conformance`, run by `assize`), which
+   owns the cases: a behavior change needs a case there. The suite
+   reaches this port through its adapter,
+   `node bin/cooper.js conformance REQUEST ANSWER`. The Elixir
    reference is the authority: if the two disagree, fix this port, or,
    if the reference is wrong, fix it there first. Only a difference
-   inherent to the host language would get this port's result in
-   `<case>.node.json` and a row in `test/conformance/DIVERGENCES.md`;
-   today there are none. A case that loads a `!module("Name")` needs
-   that name in `MODULES` in `src/conformance.cjs`.
-   Never hand-edit an `.expected.json`.
+   inherent to the host language gets a row in
+   `test/conformance/DIVERGENCES.md`. A case that loads a
+   `!module("Name")` needs that name in `MODULES` in
+   `src/conformance.cjs`.
 3. **Both drivers.** Anything that calls user code (resolvers, tags,
    import-scheme loaders) has to work under `loadString` (async) and
    `loadStringSync`. Test both.

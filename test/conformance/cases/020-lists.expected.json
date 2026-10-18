@@ -1,1 +1,0 @@
-{"ok":{"map":[["empty",[]],["list1",["a","b","c"]],["list2",["a","b"]],["mixed",[{"int":"1"},"two",{"float":3.5},{"atom":"four"},[{"int":"5"}]]]]}}

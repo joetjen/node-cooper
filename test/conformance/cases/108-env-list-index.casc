@@ -1,5 +1,0 @@
-#@version = 1.0
-a = ${LIST[]}
-b = ${LIST[1]}
-c = ${LIST[9]:"none"}
-d = ${NOPE[]:["x"]}

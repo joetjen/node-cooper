@@ -4,14 +4,15 @@ This table maps every section of [`CASC.md`](../guides/casc/CASC.md) to
 the tests covering it. It aims to be honest rather than complete-looking:
 the one genuine gap is called out at the bottom.
 
-Every section is additionally covered by the differential conformance
-suite (`conformance/oracle.spec.js`). Each `conformance/cases/*.casc` is
-checked against the Elixir reference implementation; no case has a
-Node-specific override. The `!module` cases run with the one Node-only
-option, a `modules` mapping (`conformance/options.js`, which takes the
-Cooper Conformance Suite's options from `src/conformance.cjs`;
-`conformance/DIVERGENCES.md`). The suite's adapter itself, its typed
-JSON and its §9.5 error categories, is covered by
+Every section is additionally covered across implementations by the
+Cooper Conformance Suite in the praxis repository
+(`libs_prx/cooper_conformance`, run by `assize`), which owns the cases;
+"conformance `NNN`" below names one of its cases. A behavior change needs
+a case there. The suite reaches this port through its adapter,
+`node bin/cooper.js conformance REQUEST ANSWER`. The `!module` cases run
+with the one Node-only option, a `modules` mapping (`MODULES` in
+`src/conformance.cjs`; `conformance/DIVERGENCES.md`). The adapter
+itself, its typed JSON and its §9.5 error categories, is covered by
 `conformance/adapter.spec.js`.
 
 Legend: ✅ covered · ⚠️ partially covered or known gap · N/A out of scope
@@ -62,8 +63,7 @@ per the spec itself.
 
 Beyond the spec: `.env` layering and parsing (`dotenv.spec.js`), the
 `loadFile` cache and its diagnostics channels (`cache.spec.js`), sync and
-async driver parity (`async.spec.js`, and every conformance case runs
-under both), and CJS/ESM entry-point parity (`values/module-parity.spec.js`,
+async driver parity (`async.spec.js`), and CJS/ESM entry-point parity (`values/module-parity.spec.js`,
 `cooper.spec.js`, `version.spec.js`).
 
 ## Known gap

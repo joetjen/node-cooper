@@ -24,8 +24,7 @@
  * `twice` (doubles an integer, repeats a string) and the import scheme
  * `mem:` (`mem:base`, `mem:vars`). Node adds one option the reference
  * does without, `modules`: a Node module is a location, not a name, so a
- * `!module("Name")` needs a mapping (`MODULES`). `test/conformance/
- * options.js` runs the shared corpus with these same options.
+ * `!module("Name")` needs a mapping (`MODULES`).
  *
  * ## Values
  *

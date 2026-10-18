@@ -1,27 +1,24 @@
 # Divergences from the Elixir reference
 
-`node-cooper` is checked case by case against the Elixir implementation,
-[`cooper`](https://github.com/joetjen/cooper): `oracle.spec.js` loads every
-`cases/*.casc` and compares the result with `<case>.expected.json`, which
-`scripts/oracle.exs` generates by running the same file through `cooper`
-itself (`npm run oracle`, with a `cooper` checkout next to this one).
+`node-cooper` is held to the same cases as the Elixir implementation,
+[`cooper`](https://github.com/joetjen/cooper), by the Cooper Conformance
+Suite in the praxis repository
+(`libs_prx/cooper_conformance`, run by `assize`). The suite owns the
+cases; it reaches this port through its adapter,
+`node bin/cooper.js conformance REQUEST ANSWER` (`src/conformance.cjs`).
 
 The reference is the authority. This port behaves exactly like it, except
 where a difference is inherent to the host language. Where the reference
 and [`CASC.md`](../../guides/casc/CASC.md) disagree, the fix goes to the
 reference (and its spec) first, and this port follows once it is there.
-It never keeps its own reading of the spec.
-
-A case whose result differs only because of the host would keep a
-`<case>.node.json` with this port's result, listed here. There are none:
-every case compares against the reference's own result.
+It never keeps its own reading of the spec. A behaviour change needs a
+case in the suite, not just a unit test here.
 
 ## The one Node-only option: `modules`
 
-`options.js` runs every case with the same options as `Oracle.opts/1` in
-`scripts/oracle.exs`, plus one: a `modules` mapping. It takes them from
-`src/conformance.cjs`, the Cooper Conformance Suite adapter, so the
-corpus and the suite load alike; the mapping is its `MODULES`.
+The suite fixes every case's load options; the adapter adds one the
+reference does without, a `modules` mapping (`MODULES` in
+`src/conformance.cjs`).
 
 A `!module("Name")` name is written the same way for every
 implementation, dot-separated PascalCase (CASC.md §7.5). The reference
@@ -29,33 +26,26 @@ translates a name it is not given a mapping for by convention
 (`Acme.Payments` is the Elixir module `Acme.Payments`). A Node module is
 a location, not a name, so there is no convention to translate into, and
 a name the `modules` option does not hold is a `resolve`-stage error.
-The mapping therefore holds exactly the names the corpus loads
+The mapping therefore holds exactly the names the suite's cases load
 successfully (`Acme.Payments.StripeClient`, `ASCO.HTTPClient`, `Cooper`,
-`Foo.Bar`; cases `163` and `920`). The oracle renders a module by its
-name as written, `{"module": "Foo.Bar"}`, and so does `canon`, so what
-each name maps to never reaches the comparison. Every name the corpus
-expects to fail (`126`, `164`–`167`, `914`) stays unmapped; it fails on
-its shape, before the mapping is asked.
+`Foo.Bar`; cases `163` and `920`). A module travels in an answer by its
+name as written, tagged `casc/module`, so what each name maps to never
+reaches the comparison. Every name a case expects to fail (`126`,
+`164`–`167`, `914`) stays unmapped; it fails on its shape, before the
+mapping is asked.
 
-## What the comparison itself normalizes
+## Floats in an answer
 
-`test/support/canon.js` renders both results in one neutral shape, and
-`normalize` evens out one host difference at the output boundary only:
+JavaScript has one number type, so a loaded float reaches the caller as
+a plain `number`, and `2.0` and `2` cannot be told apart in a loaded
+config. Inside a load the difference is kept
+(`src/values/cooper-float.cjs`): `"@{f}"` reads `1.0`, `-a = [1.0]` does
+not remove `1`, `!float(7)` is a float, and a consumer's tag is handed a
+`CooperFloat`, so `!twice(2.0)` fails as in the reference (case `175`).
+The adapter takes the resolved tree before its floats are unwrapped, so
+it answers `2.0` as `{"float": "2.0"}`, exactly as the reference does.
 
-- **Numbers.** A float the reference wrote with no fractional part
-  (`2.0`) compares equal to the integer `2`. JavaScript has one number
-  type, so a loaded float reaches the caller as a plain `number`. Inside
-  a load the difference is kept (`src/values/cooper-float.cjs`): `"@{f}"`
-  reads `1.0`, `-a = [1.0]` does not remove `1`, `!float(7)` is a float,
-  and a consumer's tag is handed a `CooperFloat`, so `!twice(2.0)` fails
-  as in the reference (case `175`).
-
-  The Cooper Conformance Suite's adapter (`src/conformance.cjs`) needs
-  no such evening out: it takes the resolved tree before its floats are
-  unwrapped, so it answers `2.0` as `{"float": "2.0"}`, exactly as the
-  reference does.
-
-Everything else compares exactly, offset datetimes included: a
+Everything else answers exactly, offset datetimes included: a
 `DateTime` keeps the reference's microseconds and fraction digits.
 
 ## Host differences no case exercises
