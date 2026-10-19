@@ -5,6 +5,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-10-19
+
+### Added
+
+- The spec copy (`guides/casc/CASC.md`) takes §7's rule that a module
+  interpolated into a string reads as the name the document wrote
+  (`Foo.Bar`), which this implementation already did.
+
+- **Error categories are part of the language** (CASC.md §9.5): every
+  load-time error belongs to one of `lexer`, `parser`, `action`,
+  `import`, `merge`, `loop`, `resolve` and `dotenv` -- the stages this
+  implementation already reported. The spec copy is updated.
+
+- **The Cooper Conformance Suite adapter**, `cooper conformance REQUEST
+  ANSWER` (`node bin/cooper.js conformance REQUEST ANSWER` in a
+  checkout): the suite that holds every CASC implementation to the same
+  cases reaches this one through it, as it reaches the Elixir reference
+  through `mix cooper.conformance`. It reads a JSON request of `load`
+  cases and writes one answer per case, in order: the loaded
+  configuration in the suite's typed JSON (`{"integer": "42"}`,
+  `{"float": "2.0"}`, `{"keyword": "info"}`, `{"map": [...]}`, and
+  tuples tagged `casc/duration`, `casc/secret`, `casc/module`, ... for
+  what has no literal), or the CASC.md §9.5 category of the error that
+  refused it. A whole float stays a float in the answer, though a loaded
+  config holds it as a plain `number`. The package now has a `cooper`
+  executable for it. Every case loads with the suite's fixed options
+  (`src/conformance.cjs`).
+
+### Removed
+
+- **The old conformance corpus and its oracle.** The Cooper Conformance
+  Suite in the praxis repository now owns the cases, and checks
+  behaviour across implementations; a behaviour change needs a case
+  there. Gone with the corpus are its copy in `test/conformance/cases/`,
+  its runner `test/conformance/oracle.spec.js` and load options
+  `test/conformance/options.js`, `scripts/oracle.exs` and
+  `npm run oracle`. This repository's part is the adapter,
+  `node bin/cooper.js conformance REQUEST ANSWER`, and its own tests.
+  `DIVERGENCES.md` stays: it records the host differences from the
+  Elixir reference, which the corpus never owned.
+
 ## [0.1.3] - 2026-10-14
 
 ### Fixed

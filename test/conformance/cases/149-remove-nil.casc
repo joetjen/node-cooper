@@ -1,3 +1,0 @@
-#@version = 1.0
-a = [1, nil, 2]
--a = nil

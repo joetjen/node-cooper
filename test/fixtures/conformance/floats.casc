@@ -1,0 +1,5 @@
+#@version = 1.0
+whole = 2.0
+half = 2.5
+big = 1.0e20
+n = 2

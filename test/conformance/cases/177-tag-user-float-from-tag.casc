@@ -1,3 +1,0 @@
-#@version = 1.0
-# A float made by a built-in tag reaches a consumer's tag as a float.
-v = !twice(!float(2))

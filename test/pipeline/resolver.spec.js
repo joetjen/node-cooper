@@ -338,7 +338,7 @@ describe('resolver: !Name(arg) dispatch (CASC.md §7.5, §9.4)', () => {
     expect(result).to.deep.equal({ v: '2.0 3.0', h: 2, l: [1] });
   });
 
-  it('a consumer tag that refuses a float, like the oracle\'s !twice, fails the load (conformance case 175)', () => {
+  it('a consumer tag that refuses a float, like the suite\'s !twice, fails the load (conformance case 175)', () => {
     const tags = {
       twice: (/** @type {unknown} */ n) => {
         if (typeof n === 'number' && Number.isInteger(n)) return n * 2;
@@ -470,7 +470,7 @@ describe('resolver: ${?NAME} statement guards (CASC.md §7.2)', () => {
   });
 });
 
-describe('resolver: cases the reference once got wrong (test/conformance/cases/9xx-div-*)', () => {
+describe('resolver: cases the reference once got wrong (the conformance suite\'s 9xx-div-* cases)', () => {
   it('a disabled variable declaration has no effect at all (903)', () => {
     expect(load('#@x = 1\ny = @{x:"undeclared"}')).to.deep.equal({ y: 'undeclared' });
   });

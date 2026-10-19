@@ -97,17 +97,32 @@ function* loadTree(source, opts) {
 }
 
 /**
+ * Step 2, as the pipeline itself holds the result: resolves a loaded tree
+ * against the environment in `opts`, every float still a `CooperFloat`.
+ * Only the conformance adapter (`conformance.cjs`) takes the result in
+ * this form, since the suite tells `2.0` from `2`; everything else goes
+ * through `resolveLoaded`.
+ * @param {LoadedTree} loaded
+ * @param {PipelineOptions} opts
+ * @returns {Pipeline<{value: Record<string, unknown>, envNames: Set<string>}>}
+ */
+function* resolveWrapped(loaded, opts) {
+  const resolver = new Resolver({ ...opts, tree: loaded.tree, publicVars: loaded.publicVars, privateByScope: loaded.privateByScope });
+  const value = /** @type {Record<string, unknown>} */ (yield* resolver.resolve(loaded.tree));
+  return { value, envNames: resolver.envNames };
+}
+
+/**
  * Step 2: resolves a loaded tree against the environment in `opts`.
  * @param {LoadedTree} loaded
  * @param {PipelineOptions} opts
  * @returns {Pipeline<{value: Record<string, unknown>, envNames: Set<string>}>}
  */
 function* resolveLoaded(loaded, opts) {
-  const resolver = new Resolver({ ...opts, tree: loaded.tree, publicVars: loaded.publicVars, privateByScope: loaded.privateByScope });
+  const { value, envNames } = yield* resolveWrapped(loaded, opts);
   // The pipeline's internal floats become plain numbers here, the one
   // place a resolved tree leaves it (values/float.cjs).
-  const value = /** @type {Record<string, unknown>} */ (unwrapFloats(yield* resolver.resolve(loaded.tree)));
-  return { value, envNames: resolver.envNames };
+  return { value: /** @type {Record<string, unknown>} */ (unwrapFloats(value)), envNames };
 }
 
-module.exports = { loadTree, resolveLoaded };
+module.exports = { loadTree, resolveWrapped, resolveLoaded };

@@ -1,0 +1,2 @@
+#@version = 1.0
+formatter = !module("Foo.Bar")

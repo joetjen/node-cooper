@@ -1,3 +1,0 @@
-#@version = 1.0
-import "imports/env/${WHICH:prod}.casc"
-import "imports/env/${NOPE:prod}.casc"

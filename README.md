@@ -211,14 +211,27 @@ ship with the package, for `import` and `require` alike.
 ## Other language implementations
 
 CASC's spec ([`casc/CASC.md`](guides/casc/CASC.md)) is
-implementation-independent. This library is checked case by case against
-the Elixir reference implementation (`test/conformance/`), which is the
-authority: the two load every case alike. A `!module("Name")` name is
+implementation-independent. Behavior is checked across implementations
+by the Cooper Conformance Suite in the praxis repository, which holds
+every implementation to the same cases; a behavior change needs a case
+there. The Elixir reference implementation is the authority: this
+library loads every case alike. A `!module("Name")` name is
 written the same way for both; where Elixir translates it into a module
 by convention, Node needs the `modules` option to map it, since a Node
 module is a location rather than a name. That and the JS value model's
 other host differences are listed in
 [`DIVERGENCES.md`](test/conformance/DIVERGENCES.md).
+
+The suite runs this implementation through its adapter:
+
+```sh
+cooper conformance REQUEST ANSWER        # installed
+node bin/cooper.js conformance REQUEST ANSWER   # in a checkout
+```
+
+It reads the suite's JSON request and writes one answer per case: the
+loaded value in the suite's typed JSON, or the category of the error
+that refused it.
 
 | Language | Package | Source |
 | --- | --- | --- |
@@ -234,9 +247,7 @@ npm run precommit
 
 `npm run precommit` runs `tsc --checkJs --noEmit` to type-check the JSDoc
 annotations, followed by the full Mocha test suite. This project expects
-it to pass before every commit. `npm run oracle` regenerates the
-conformance expectations from a `cooper` checkout in `../cooper`; this
-needs Elixir.
+it to pass before every commit.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to propose changes, and
 [CHANGELOG.md](CHANGELOG.md) for release history.

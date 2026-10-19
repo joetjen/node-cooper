@@ -1,6 +1,6 @@
 {
   "name": "@joetjen/cooper",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -24,10 +24,14 @@
       "default": "./src/cooper.cjs"
     }
   },
+  "bin": {
+    "cooper": "./bin/cooper.js"
+  },
   "files": [
     "src",
     "types",
-    "guides"
+    "guides",
+    "bin"
   ],
   "license": "Apache-2.0",
   "directories": {
@@ -52,7 +56,6 @@
     "typecheck": "npx tsc --checkJs --noEmit && npm run build:types && npx tsc --noEmit -p test/types",
     "precommit": "npm run typecheck && npm test",
     "docs": "npx typedoc",
-    "oracle": "cd ../cooper && mix run ../node-cooper/scripts/oracle.exs ../node-cooper/test/conformance/cases",
     "prepack": "npm run build:types"
   },
   "repository": {

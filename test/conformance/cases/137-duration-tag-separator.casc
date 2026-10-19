@@ -1,3 +1,0 @@
-#@version = 1.0
-a = !duration("1_000ms")
-b = !bytes("1.5KiB")
