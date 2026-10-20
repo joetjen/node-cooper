@@ -6,7 +6,7 @@
     "access": "public"
   },
   "author": "Jan Oetjen <joetjen.riveting388@passmail.net> (http://joetjen.net)",
-  "description": "Loads CASC config files -- a hierarchical, extensible config language with imports, variables, interpolation, loops, and consumer-registered resolvers/tags -- into native JS values, secrets redacted by default.",
+  "description": "Under heavy development: not for production use before 1.0.0. Loads CASC config files -- a hierarchical, extensible config language with imports, variables, interpolation, loops, and consumer-registered resolvers/tags -- into native JS values, secrets redacted by default.",
   "homepage": "https://github.com/joetjen/node-cooper",
   "type": "module",
   "main": "./src/cooper.cjs",
