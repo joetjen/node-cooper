@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-10-21
+
+### Added
+
+- **The README opens with a warning**: under heavy development, not for
+  production use before `1.0.0`. Things can and will break, and the
+  specification can and will change, between any two releases until
+  then. The package description says so too.
+
+### Changed
+
+- The spec copy takes CASC.md §7's line on a mapped module: in a
+  string it reads as the value the application's `modules` option maps
+  it to, not as the name written -- what this implementation already
+  did.
+
 ## [0.2.0] - 2026-10-19
 
 ### Added
