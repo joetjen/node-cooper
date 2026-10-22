@@ -70,6 +70,23 @@ describe('!module: a name the mapping holds (CASC.md §7.5)', () => {
   });
 });
 
+describe('!module in a string (CASC.md §7)', () => {
+  it('reads as the specifier the mapping holds, as the application wrote it', () => {
+    const { s } = load('s = "x-!module(\\"Crypto\\")"', { modules: { Crypto: 'crypto' } });
+    expect(s).to.equal('x-crypto');
+  });
+
+  it('reads a relative specifier as written, not as the path it resolves to', () => {
+    const { s } = load('s = "!module(\\"Handlers.Thing\\")"', { modules: { 'Handlers.Thing': './lib/thing.js' } });
+    expect(s).to.equal('./lib/thing.js');
+  });
+
+  it('reads as the name written when the mapping holds a module itself, which has no text', () => {
+    const { s } = load('s = "x-!module(\\"Stripe\\")"', { modules: { Stripe: StripeClient } });
+    expect(s).to.equal('x-Stripe');
+  });
+});
+
 describe('!module: what a mapping value means', () => {
   it('a specifier string is kept for load() to import, not imported at load', () => {
     const { m } = load('m = !module("Missing")', { modules: { Missing: './no/such/module.js' } });

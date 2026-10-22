@@ -12,6 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **CASC.md §5.5 shows its loop results as Markdown tables**, not TOON,
   and §1 says a result with many uniform entries is shown as a table.
 
+### Fixed
+
+- **A mapped module in a string reads as what it maps to** (CASC.md §7),
+  as in every other implementation: with `modules: { Crypto: 'crypto' }`,
+  `"x-!module(\"Crypto\")"` is `x-crypto`, where it was `x-Crypto`.
+  A specifier reads as the application wrote it, a relative one too;
+  a module object or class, which has no text, reads as the name
+  written. `ModuleRef#mapping` holds that specifier.
+
 ## [0.2.1] - 2026-10-21
 
 ### Added
