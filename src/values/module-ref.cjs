@@ -66,6 +66,13 @@ class ModuleRef {
      */
     this.specifier = typeof target === 'string' ? resolveSpecifier(target, base) : undefined;
     /**
+     * The specifier exactly as the mapping held it, before a relative one
+     * is resolved -- what the module reads as inside a string (CASC.md §7).
+     * `undefined` when the mapping held the module itself.
+     * @type {string | undefined}
+     */
+    this.mapping = typeof target === 'string' ? target : undefined;
+    /**
      * The module the mapping held, when it was not a specifier string;
      * `undefined` otherwise.
      * @type {unknown}

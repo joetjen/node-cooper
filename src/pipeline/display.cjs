@@ -11,6 +11,7 @@ const CooperError = require('../error.cjs');
 const Tuple = require('../values/tuple.cjs');
 const LocalDateTime = require('../values/local-date-time.cjs');
 const DateTime = require('../values/date-time.cjs');
+const ModuleRef = require('../values/module-ref.cjs');
 const { isPlainObject } = require('../values/equality.cjs');
 const { CooperFloat, formatFloat } = require('../values/float.cjs');
 
@@ -54,6 +55,10 @@ function display(value) {
   if (value instanceof DateTime) return value.toString().replace('T', ' ');
   if (value instanceof Date) return displayInstant(value);
   if (value instanceof LocalDateTime) return value.toString().replace('T', ' ');
+  // A module reads as what the application mapped it to (CASC.md §7): the
+  // specifier as written. A module object or class has no text, so one the
+  // mapping held itself reads as the name the document wrote.
+  if (value instanceof ModuleRef) return value.mapping ?? value.name;
   if (Array.isArray(value) || value instanceof Tuple || isPlainObject(value)) {
     const what = Array.isArray(value) ? 'a list' : value instanceof Tuple ? 'a tuple' : 'a map';
     throw new CooperError(`cannot interpolate ${what} into a string`, { stage: 'resolve' });
