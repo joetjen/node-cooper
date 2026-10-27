@@ -21,10 +21,10 @@
  * use them and every implementation sees the same: the variables in
  * `ENV`, no `.env` file, the document's own directory as the root, the
  * resolvers `echo` (answers its payload) and `fail` (refuses), the tag
- * `twice` (doubles an integer, repeats a string) and the import scheme
- * `mem:` (`mem:base`, `mem:vars`). Node adds one option the reference
- * does without, `modules`: a Node module is a location, not a name, so a
- * `!module("Name")` needs a mapping (`MODULES`).
+ * `twice` (doubles an integer, repeats a string), the import scheme
+ * `mem:` (`mem:base`, `mem:vars`) and the module mapping `Crypto` =>
+ * `crypto`. Node's mapping holds more (`MODULES`): a Node module is a
+ * location, not a name, so every `!module("Name")` needs one.
  *
  * ## Values
  *
@@ -98,21 +98,32 @@ const ENV = Object.freeze({
 });
 
 /**
- * The one Node-only option. The reference translates a `!module("Name")`
- * name into an Elixir module by convention and needs no mapping; a Node
- * module is a location, not a name, so this port requires every name in
- * `modules` (CASC.md §7.5). These are the names the cases load
- * successfully; a module travels by its name as written, so what each
- * maps to never reaches an answer. Names a case expects to fail stay
- * out: they must fail on their shape, mapped or not. See
- * `test/conformance/DIVERGENCES.md`.
- * @type {Readonly<Record<string, string>>}
+ * A module the application imported itself, standing in for one: it has
+ * no text, so in a string it reads as the name the document wrote
+ * (CASC.md §7), as the reference's unmapped modules do.
+ * @returns {Readonly<object>}
+ */
+const importedModule = () => Object.freeze({});
+
+/**
+ * The `modules` mapping. The reference translates a `!module("Name")`
+ * name into an Elixir module by convention and needs a mapping only for
+ * `Crypto`, which every adapter maps; a Node module is a location, not a
+ * name, so this port requires every name in `modules` (CASC.md §7.5).
+ * These are the names the cases load successfully. A module travels by
+ * its name as written, so what each maps to reaches an answer only in a
+ * string: the suite's own names are modules the application imported,
+ * reading as the name written, and `Crypto` is a specifier, reading as
+ * itself. Names a case expects to fail stay out: they must fail on their
+ * shape, mapped or not. See `test/conformance/DIVERGENCES.md`.
+ * @type {Readonly<Record<string, unknown>>}
  */
 const MODULES = Object.freeze({
-  'Acme.Payments.StripeClient': './lib/payments/stripe.js',
-  'ASCO.HTTPClient': '@asco/http-client',
-  Cooper: '@joetjen/cooper',
-  'Foo.Bar': 'node:path',
+  'Acme.Payments.StripeClient': importedModule(),
+  'ASCO.HTTPClient': importedModule(),
+  Cooper: importedModule(),
+  'Foo.Bar': importedModule(),
+  Crypto: 'crypto',
 });
 
 /**

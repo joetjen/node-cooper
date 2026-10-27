@@ -14,11 +14,12 @@ reference (and its spec) first, and this port follows once it is there.
 It never keeps its own reading of the spec. A behaviour change needs a
 case in the suite, not just a unit test here.
 
-## The one Node-only option: `modules`
+## A `modules` mapping for every name
 
-The suite fixes every case's load options; the adapter adds one the
-reference does without, a `modules` mapping (`MODULES` in
-`src/conformance.cjs`).
+The suite fixes every case's load options, the module mapping included:
+every adapter maps `Crypto`, so a mapped module reads in a string as what
+it maps to (`crypto`, CASC.md §7). This adapter's mapping (`MODULES` in
+`src/conformance.cjs`) holds more.
 
 A `!module("Name")` name is written the same way for every
 implementation, dot-separated PascalCase (CASC.md §7.5). The reference
@@ -26,11 +27,13 @@ translates a name it is not given a mapping for by convention
 (`Acme.Payments` is the Elixir module `Acme.Payments`). A Node module is
 a location, not a name, so there is no convention to translate into, and
 a name the `modules` option does not hold is a `resolve`-stage error.
-The mapping therefore holds exactly the names the suite's cases load
+The mapping therefore holds every name the suite's cases load
 successfully (`Acme.Payments.StripeClient`, `ASCO.HTTPClient`, `Cooper`,
-`Foo.Bar`; cases `163` and `920`). A module travels in an answer by its
-name as written, tagged `casc/module`, so what each name maps to never
-reaches the comparison. Every name a case expects to fail (`126`,
+`Foo.Bar`; cases `163` and `920`). Each of those four maps to a module
+object, as if the application had imported it, so in a string it reads
+as the name written, like the reference's unmapped module; a specifier
+would read as itself. A module travels in an answer by its name as
+written, tagged `casc/module`. Every name a case expects to fail (`126`,
 `164`–`167`, `914`) stays unmapped; it fails on its shape, before the
 mapping is asked.
 
